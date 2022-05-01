@@ -1,5 +1,5 @@
-#HIREDIS#
-****
+# HIREDIS
+*******
 Hiredis是redis数据库一个轻量的C语言客户端库。
 
 之所以轻量是由于它只是简单的提供了对redis操作语句支持的接口，并没有实现具体的操作语句的功能。但正是由于这种设计使我们只要熟悉了通用的redis操作语句就可以很容易的使用该库和redis数据库进行交互。
@@ -10,16 +10,16 @@ Hirides仅仅支持二进制安全的redis协议，所以你只能针对版本�
 
 库包含多种API，包括同步命令操作API、异步命令操作API和对应答数据进行解析的API。
 
-##升级
+## 升级
 版本0.9.0是hiredis很多特性一次大的更新。但是对现有代码进行升级应该不会造成大的问题。升级时，要记住的关键一点是大于等于0.9.0的版本是使用redisContext*来保持连接状态，之前的版本只是使用了无状态的文件描述符。
 
-##同步API
+## 同步API
 有几个API需要介绍
 >redisContext *redisConnect(const char *ip, int port);  
 >void *redisCommand(redisContext *c, const char *format, ...);  
 >void freeReplyObject(void *reply); 
 
-###连接redis数据库
+### 连接redis数据库
 函数 redisConnect 被用来创建一个 redisContext。这个 context 是hiredis持有的连接状态。redisConnect 结构体有一个整型的 err 变量来标识连接错误码，如果连接错误则为非零值。变量 errstr 标识连接结果的文字描述。更多这方面的信息会在以下**Errors**章节说明。当你使用 redisConnect 来创建连接时应该检查err变量来判断是否连接正常建立。
 >redisContext *c = redisConnect("127.0.0.1", 6379);  
 >if (c != NULL && c->err) {  
@@ -27,7 +27,7 @@ Hirides仅仅支持二进制安全的redis协议，所以你只能针对版本�
 >		// handle error		
 >	}
 
-###发送命令到redis
+### 发送命令到redis
 有多种方法可以发送命令到redis。  
 
 首先介绍的是redisCommand。此函数类似于printf的使用方式，如
@@ -43,7 +43,7 @@ Hirides仅仅支持二进制安全的redis协议，所以你只能针对版本�
 
 `reply = redisCommand(context, "SET key:%s %s", myid, value);`
 
-###处理redis应答
+### 处理redis应答
 当命令被成功执行后redisCommand会有相应的返回值。如果有错误发生，返回值为NULL并且redisReply结构体中的err变量将会被设置成相应的值（请参照**Errors**章节）。**一旦有错误发生context不能被重用并且你需要建立一个新的连接**。
 
 redisCommand执行后返回值类型为redisReply。通过redisReply结构体中的type变量可以确定命令执行的情况。
@@ -71,13 +71,13 @@ redisCommand执行后返回值类型为redisReply。通过redisReply结构体中
 
 **Important:**hiredis当前版本 (0.10.0)当使用异步API时会自己释放replies对象。这意味着你使用异步API时并不需要主动调用freeReplyObject 。relpy对象当回调返回时将会被自动释放。但是这种行为也许会在将来的版本中改变，所以升级时请密切关注升级日志。
 
-###清理连接资源###
+### 清理连接资源
 断开连接并且释放context使用以下函数
 >void redisFree(redisContext *c);
 
 此函数立马关闭socket并且释放创建context时分配的资源。
 
-###发送多个命令参数###
+### 发送多个命令参数
 和redisCommand函数相似，redisCommandArgv函数可以用于传输多个命令参数。函数原型为
 >void *redisCommandArgv(redisContext *c, int argc, const char **argv, const size_t *argvlen);
 
@@ -85,7 +85,7 @@ redisCommand执行后返回值类型为redisReply。通过redisReply结构体中
 
 此函数返回值与redisCommand相似。参考[https://gist.github.com/dspezia/1455082](https://gist.github.com/dspezia/1455082)
 
-###管线（Pipelining）###
+### 管线（Pipelining）
 为了搞清楚Hiredis在阻塞连接下的管线操作，需要理解其内部执行过程。
 
 当任何类似于redisCommand的函数被调用，Hiredis首先将命令格式化为redis支持的命令协议。被格式化后的命令被放入context的输出缓冲区，这个缓冲区是动态的，所以它可以容纳任意数量的命令。在命令进入输出缓冲区后，redisGetReply 函数被调用。这个函数有以下两种执行方式：
@@ -128,7 +128,7 @@ redisGetReply这个API也可以被用来实现阻塞的订阅模式
 >}
 
 
-###Errors###
+### Errors
 如果某些函数（如redisConnect， redisCommand（调用不成功，函数返回值为NULL或者REDIS_ERR，此时context结构体中的err成员为非零值，可能为以下几种常量
 
 * REDIS\_ERR\_IO:当创建连接时（试着写socket或者读socket）发生的I/O错误。如果你在代码中包含了errno.h头文件，你便能得到准确的错误码。
@@ -141,11 +141,11 @@ redisGetReply这个API也可以被用来实现阻塞的订阅模式
 
 在错误情况下，可以通过context结构体中的errstr成员得到错误的确切描述。
 
-##异步API##
+## 异步API
 
 Hiredis自带的异步API很容易和一些基于事件的库结合使用。比如和libev、ibevent的结合使用。
 
-###连接###
+### 连接
 函数redisAsyncConnect被用来和redis建立非阻塞连接。它返回redisAsyncContext的结构体，结构体的err成员用来检查在创建连接的过程中是否发生了错误。因为创建的是非阻塞的连接，内核并不能立马返回一个连接指定主机的结果。
 >redisAsyncContext *c = redisAsyncConnect("127.0.0.1", 6379);  
 >if (c->err)   
@@ -164,7 +164,7 @@ Hiredis自带的异步API很容易和一些基于事件的库结合使用。比�
 一个context对象仅能设置一次断开连接的回调，如果再进行下一次设置将会返回REDIS_ERR。设置断开连接回调函数的原型为：
 >int redisAsyncSetDisconnectCallback(redisAsyncContext *ac, redisDisconnectCallback *fn);
 
-###发送操作命令并且响应回调事件###
+### 发送操作命令并且响应回调事件
 在异步的情况下，redis的操作指令将会被自动加入事件循环队列。由于发送命令执行的过程是异步的，当命令执行完毕后将会调用相应的回调函数。回调函数的原型为
 >void(redisAsyncContext *c, void *reply, void *privdata);
 
@@ -183,16 +183,16 @@ privdata参数是由调用者自己定义的数据类型。
 
 当context发生错误时回调得到的reply将为空。
 
-###断开连接###
+### 断开连接
 一个异步的连接可以通过下面这个函数终止
 >void redisAsyncDisconnect(redisAsyncContext *ac);
 
 当这个函数被调用时，连接并不会被立即关闭，而是等待所有这个连接的异步命令操作执行完毕，并且回调事件已经执行完毕后才关闭此连接，这时在响应关闭连接事件的回调函数中得到的状态为REDIS_OK，此连接的资源也将会被自动回收。
 
-###将其挂接到事件库X###
+### 将其挂接到事件库X
 在context对象被创建后进行很少的几步操作就可以进行挂接。参看目录adapters/下是如何挂接到libev 和 libevent下的。
 
-##应答解析API##
+## 应答解析API
 Hiredis自带的答复解析API ，可以很容易与更高层次的语言进行绑定。TODO：
 
 
