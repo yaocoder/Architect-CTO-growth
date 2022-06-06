@@ -25,7 +25,7 @@ DevOps持续交付体系（Guides）
     
 ## 流程及指导篇
 ### IT价值流
-[IT价值流概览…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%8C%87%E5%AF%BC/IT%E4%BB%B7%E5%80%BC%E6%B5%81%E6%A6%82%E8%A7%88.md)
+[IT价值流概览链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%8C%87%E5%AF%BC/IT%E4%BB%B7%E5%80%BC%E6%B5%81%E6%A6%82%E8%A7%88.md)
 - 一、产品准备期
     - 0.业务需求协作管理
     - 1.需求拆分（产品组织主导）
@@ -41,3 +41,42 @@ DevOps持续交付体系（Guides）
         - 2.3.2 涉及遗留架构的改造策略
 
   [该章节文档链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%8C%87%E5%AF%BC/%E4%BA%A7%E5%93%81%E5%87%86%E5%A4%87%E6%9C%9F.md)
+  
+- 二、产品交付期
+    - 1.持续集成（Continuous integration  简称CI）
+      - 1.1 持续集成的步骤
+      - 1.2 持续集成的实践]
+        - 1.2.1 使构建过程脚本化，搭建持续集成框架
+        - 1.2.2 向构建中添加已有的自动化验证集合
+        - 1.2.3 选择利于持续集成的分支策略
+        - 1.2.4 建立六步提交法
+    - 2. 持续测试
+      - 2.1 Brian Marick 测试四象限
+      - 2.2 测试类型
+        - 2.2.1 单元测试
+        - 2.2.2 组件测试
+        - 2.2.3 集成测试
+        - 2.2.4 验收测试
+    - 3.持续部署（发布）
+      - 3.1 高频发布的好处
+      - 3.2 低风险发布策略
+        - 3.2.1 蓝绿部署
+        - 3.2.2 滚动部署
+        - 3.2.3 灰度发
+    - 4.软件配置管理
+      - 4.1 核心原则
+      - 4.2 制品库管理
+        - 4.2.1 临时软件包库
+        - 4.2.2 正式软件包库
+        - 4.2.3 外部软件包库
+      - 4.3 数据版本管理
+    - 总：部署流水线
+      - 1.核心阶段
+        - 基础环境准备
+        - 1.1 “提交构建”阶段
+        - 1.2 “UAT验收测试”阶段
+        - 1.3 “部署/发布”阶段
+      - 2.基础支撑服务
+      - 3.需遵守的原则
+
+  [该章节文档链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%8C%87%E5%AF%BC/%E4%BA%A7%E5%93%81%E4%BA%A4%E4%BB%98%E6%9C%9F.md)
