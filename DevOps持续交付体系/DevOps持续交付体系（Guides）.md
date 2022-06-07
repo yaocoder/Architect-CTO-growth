@@ -50,7 +50,7 @@ DevOps持续交付体系（Guides）
         - 1.2.2 向构建中添加已有的自动化验证集合
         - 1.2.3 选择利于持续集成的分支策略
         - 1.2.4 建立六步提交法
-    - 2. 持续测试
+    - 2.持续测试
       - 2.1 Brian Marick 测试四象限
       - 2.2 测试类型
         - 2.2.1 单元测试
@@ -80,3 +80,13 @@ DevOps持续交付体系（Guides）
       - 3.需遵守的原则
 
   [该章节文档链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%8C%87%E5%AF%BC/%E4%BA%A7%E5%93%81%E4%BA%A4%E4%BB%98%E6%9C%9F.md)
+  
+- 三、产品运营期
+    - 1.监测与决策](#1监测与决策)
+      - 1.1 生产环境监测体系
+        - 1.1.1 后台服务监测
+        - 1.1.2 分发客户端监测
+      - 1.3 问题处理体系
+    - 2.数据治理体系
+
+  [该章节文档链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%8C%87%E5%AF%BC/%E4%BA%A7%E5%93%81%E8%BF%90%E8%90%A5%E6%9C%9F.md)
