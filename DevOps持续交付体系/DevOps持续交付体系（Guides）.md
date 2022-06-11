@@ -25,7 +25,7 @@ DevOps持续交付体系（Guides）
     
 ## 流程及方法篇
 ### IT价值流
-[IT价值流概览链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%8C%87%E5%AF%BC/IT%E4%BB%B7%E5%80%BC%E6%B5%81%E6%A6%82%E8%A7%88.md)
+[IT价值流概览链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%96%B9%E6%B3%95/IT%E4%BB%B7%E5%80%BC%E6%B5%81%E6%A6%82%E8%A7%88.md)
 - 一、产品准备期
     - 0.业务需求协作管理
     - 1.需求拆分（产品组织主导）
@@ -40,7 +40,7 @@ DevOps持续交付体系（Guides）
         - 2.3.1 架构的设计原则
         - 2.3.2 涉及遗留架构的改造策略
 
-  [该章节文档链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%8C%87%E5%AF%BC/%E4%BA%A7%E5%93%81%E5%87%86%E5%A4%87%E6%9C%9F.md)
+  [该章节文档链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%96%B9%E6%B3%95/%E4%BA%A7%E5%93%81%E5%87%86%E5%A4%87%E6%9C%9F.md)
   
 - 二、产品交付期
     - 1.持续集成（Continuous integration  简称CI）
@@ -79,7 +79,7 @@ DevOps持续交付体系（Guides）
       - 2.基础支撑服务
       - 3.需遵守的原则
 
-  [该章节文档链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%8C%87%E5%AF%BC/%E4%BA%A7%E5%93%81%E4%BA%A4%E4%BB%98%E6%9C%9F.md)
+  [该章节文档链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%96%B9%E6%B3%95/%E4%BA%A7%E5%93%81%E4%BA%A4%E4%BB%98%E6%9C%9F.md)
   
 - 三、产品运营期
     - 1.监测与决策
@@ -89,7 +89,7 @@ DevOps持续交付体系（Guides）
       - 1.3 问题处理体系
     - 2.数据治理体系
 
-  [该章节文档链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%8C%87%E5%AF%BC/%E4%BA%A7%E5%93%81%E8%BF%90%E8%90%A5%E6%9C%9F.md)
+  [该章节文档链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%96%B9%E6%B3%95/%E4%BA%A7%E5%93%81%E8%BF%90%E8%90%A5%E6%9C%9F.md)
   
 ## 工具平台篇
 - 工具平台
@@ -112,7 +112,7 @@ DevOps持续交付体系（Guides）
        - 1.服务器及应用监控：KubeSphere + Prometheus + 公有云自带
       -  2.业务监控及运营：自研智能运营分析系统
  
-  [该章节文档链接…]()
+  [该章节文档链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E5%B7%A5%E5%85%B7%E5%B9%B3%E5%8F%B0/%E5%B7%A5%E5%85%B7%E5%B9%B3%E5%8F%B0.md)
 
 ## 评估体系
 - 评估体系
@@ -126,4 +126,4 @@ DevOps持续交付体系（Guides）
         - 2.2.1 业务需求响应速度
         - 2.2.2 持续交付能力
 
-  [该章节文档链接…]()
+  [该章节文档链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E8%AF%84%E4%BC%B0%E4%BD%93%E7%B3%BB/%E8%AF%84%E4%BC%B0%E4%BD%93%E7%B3%BB.md)
