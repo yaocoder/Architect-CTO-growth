@@ -23,7 +23,7 @@ DevOps持续交付体系（Guides）
 
     [该章节文档链接…](https://github.com/yaocoder/MyDocument/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%96%87%E5%8C%96/DevOps%E6%96%87%E5%8C%96.md)
     
-## 流程及指导篇
+## 流程及方法篇
 ### IT价值流
 [IT价值流概览链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%8C%87%E5%AF%BC/IT%E4%BB%B7%E5%80%BC%E6%B5%81%E6%A6%82%E8%A7%88.md)
 - 一、产品准备期
@@ -82,7 +82,7 @@ DevOps持续交付体系（Guides）
   [该章节文档链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%8C%87%E5%AF%BC/%E4%BA%A7%E5%93%81%E4%BA%A4%E4%BB%98%E6%9C%9F.md)
   
 - 三、产品运营期
-    - 1.监测与决策](#1监测与决策)
+    - 1.监测与决策
       - 1.1 生产环境监测体系
         - 1.1.1 后台服务监测
         - 1.1.2 分发客户端监测
@@ -90,3 +90,40 @@ DevOps持续交付体系（Guides）
     - 2.数据治理体系
 
   [该章节文档链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%8C%87%E5%AF%BC/%E4%BA%A7%E5%93%81%E8%BF%90%E8%90%A5%E6%9C%9F.md)
+  
+## 工具平台篇
+- 工具平台
+    - （一）产品准备期
+      - 1.需求及研发任务管理：禅道或Jira
+    - （二）产品交付期
+      - 1.部署流水线：KubeSphere
+      - 2.CI&CD 系统：Jenkins
+      - 3.代码质量管理：SonarQube
+        - 2.1 多语言支持
+        - 2.2 七个维度检测代码质量
+        - 2.3 执行流程
+      - 4.持续测试平台：MeterSphere
+      - 5.容器镜像制品库：Harbor
+        - 让镜像分发更高效
+        - 让镜像分发更安全
+        - 优雅的资源清理和垃圾回收
+        - 多种HA方案
+    - (三）产品运营期
+       - 1.服务器及应用监控：KubeSphere + Prometheus + 公有云自带
+      -  2.业务监控及运营：自研智能运营分析系统
+ 
+  [该章节文档链接…]()
+
+## 评估体系
+- 评估体系
+    - 1.过程维度
+      - 1.1 能力雷达图谱
+    - 2. 结果维度
+      - 2.1 质量
+        - 2.1.1 交付前的过程质量
+        - 2.1.2 交付后的生产质量
+      - 2.2 速度
+        - 2.2.1 业务需求响应速度
+        - 2.2.2 持续交付能力
+
+  [该章节文档链接…]()

@@ -34,7 +34,7 @@ DevOps文化
 #### 目标：高质量、低风险地快速发布软件价值
 部署流水线是指软件从版本控制库到用户手中这一过程的自动化表现形式。
 
-![deployment](https://thumbnail0.baidupcs.com/thumbnail/6689467faqd9f7e3a62513590238a6cc?fid=1495796980-250528-428507634061122&time=1654333200&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-xThZ36bpYiBvmswMq6UoP5%2B2Eu8%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=130177386342058437&dp-callid=0&file_type=0&size=c710_u400&quality=100&vuk=-&ft=video)
+![deployment](https://gitee.com/yaomiguo/Architect-CTO-growth/raw/master/DevOps持续交付体系/文化/image/deployment.png)
 
 #### 核心模式
 部署流水线
