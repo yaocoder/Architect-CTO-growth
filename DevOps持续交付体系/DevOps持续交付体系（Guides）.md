@@ -1,7 +1,7 @@
 DevOps持续交付体系（Guides）
 ============
 
-## 文化篇
+### 文化篇
 - 软件工程的发展
     - 瀑布式开发
     - 精益运动
@@ -23,8 +23,8 @@ DevOps持续交付体系（Guides）
 
     [该章节文档链接…](https://github.com/yaocoder/MyDocument/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%96%87%E5%8C%96/DevOps%E6%96%87%E5%8C%96.md)
     
-## 流程及方法篇
-### IT价值流
+### 流程及方法篇
+#### IT价值流
 [IT价值流概览链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%96%B9%E6%B3%95/IT%E4%BB%B7%E5%80%BC%E6%B5%81%E6%A6%82%E8%A7%88.md)
 - 一、产品准备期
     - 0.业务需求协作管理
@@ -91,7 +91,7 @@ DevOps持续交付体系（Guides）
 
   [该章节文档链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%96%B9%E6%B3%95/%E4%BA%A7%E5%93%81%E8%BF%90%E8%90%A5%E6%9C%9F.md)
   
-## 工具平台篇
+### 工具平台篇
 - 工具平台
     - （一）产品准备期
       - 1.需求及研发任务管理：禅道或Jira
@@ -114,7 +114,7 @@ DevOps持续交付体系（Guides）
  
   [该章节文档链接…](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E5%B7%A5%E5%85%B7%E5%B9%B3%E5%8F%B0/%E5%B7%A5%E5%85%B7%E5%B9%B3%E5%8F%B0.md)
 
-## 评估体系
+### 评估体系
 - 评估体系
     - 1.过程维度
       - 1.1 能力雷达图谱
