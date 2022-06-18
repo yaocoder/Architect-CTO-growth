@@ -37,7 +37,7 @@ DevOps持续交付体系（Guides）
         - 2.3.1 架构的设计原则
         - 2.3.2 涉及遗留架构的改造策略
   
-#### 二、[产品交付期]((https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%96%B9%E6%B3%95/%E4%BA%A7%E5%93%81%E4%BA%A4%E4%BB%98%E6%9C%9F.md))
+#### 二、[产品交付期](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%96%B9%E6%B3%95/%E4%BA%A7%E5%93%81%E4%BA%A4%E4%BB%98%E6%9C%9F.md)
     - 1.持续集成（Continuous integration  简称CI）
       - 1.1 持续集成的步骤
       - 1.2 持续集成的实践]
@@ -75,7 +75,7 @@ DevOps持续交付体系（Guides）
       - 3.需遵守的原则
 
   
-#### 三、[产品运营期]((https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%96%B9%E6%B3%95/%E4%BA%A7%E5%93%81%E8%BF%90%E8%90%A5%E6%9C%9F.md))
+#### 三、[产品运营期](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%96%B9%E6%B3%95/%E4%BA%A7%E5%93%81%E8%BF%90%E8%90%A5%E6%9C%9F.md)
     - 1.监测与决策
       - 1.1 生产环境监测体系
         - 1.1.1 后台服务监测
