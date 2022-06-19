@@ -1,6 +1,6 @@
 云原生技术体系（Guides）
 =============
-### 一、[何为云原生](https://github.com/yaocoder/Architect-CTO-growth/blob/master/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/%E4%BD%93%E7%B3%BB%E6%80%BB%E8%A7%88/%E4%BD%95%E4%B8%BA%E4%BA%91%E5%8E%9F%E7%94%9F.md)
+### 一、[何为云原生](体系总览/何为云原生.md)
     - 1.云托管 VS 云原生
       - 1.1 云托管
       - 1.2 云原生
@@ -24,7 +24,7 @@
       - 3.4 控制风险
 
 
-### [二、如何实践云原生](https://github.com/yaocoder/Architect-CTO-growth/blob/master/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/%E4%BD%93%E7%B3%BB%E6%80%BB%E8%A7%88/%E5%A6%82%E4%BD%95%E5%AE%9E%E8%B7%B5%E4%BA%91%E5%8E%9F%E7%94%9F.md)
+### [二、如何实践云原生](体系总览/如何实践云原生.md)
 
     - 1. 升级研发体系
       - 1.1 云原生基础设施

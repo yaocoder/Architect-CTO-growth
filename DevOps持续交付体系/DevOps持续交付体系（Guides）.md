@@ -2,14 +2,14 @@ DevOps持续交付体系（Guides）
 ============
 
 ### 文化篇
-#### [软件工程的发展](https://github.com/yaocoder/MyDocument/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%96%87%E5%8C%96/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%9A%84%E5%8F%91%E5%B1%95.md)
+#### [软件工程的发展](文化/软件工程的发展.md)
     - 瀑布式开发
     - 精益运动
     - 敏捷开发
     - 持续交付运动
     - DevOps持续交付体系
 
-#### [DevOps文化](https://github.com/yaocoder/MyDocument/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%96%87%E5%8C%96/DevOps%E6%96%87%E5%8C%96.md)
+#### [DevOps文化](文化/DevOps文化.md)
     - DevOps的组织文化
       - 交付“价值”
       - 允许失败、获得反馈、持续改善
@@ -20,10 +20,10 @@ DevOps持续交付体系（Guides）
       - 核心原则
     
 ### 流程及方法篇
-#### [IT价值流](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%96%B9%E6%B3%95/IT%E4%BB%B7%E5%80%BC%E6%B5%81%E6%A6%82%E8%A7%88.md)
+#### [IT价值流](流程及方法/IT价值流概览.md)
     - IT价值流概览
 
-#### 一、[产品准备期](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%96%B9%E6%B3%95/%E4%BA%A7%E5%93%81%E5%87%86%E5%A4%87%E6%9C%9F.md)
+#### 一、[产品准备期](流程及方法/产品准备期.md)
     - 0.业务需求协作管理
     - 1.需求拆分（产品组织主导）
       - 1.1 需求拆分的好处
@@ -37,7 +37,7 @@ DevOps持续交付体系（Guides）
         - 2.3.1 架构的设计原则
         - 2.3.2 涉及遗留架构的改造策略
   
-#### 二、[产品交付期](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%96%B9%E6%B3%95/%E4%BA%A7%E5%93%81%E4%BA%A4%E4%BB%98%E6%9C%9F.md)
+#### 二、[产品交付期](流程及方法/产品交付期.md)
     - 1.持续集成（Continuous integration  简称CI）
       - 1.1 持续集成的步骤
       - 1.2 持续集成的实践]
@@ -75,7 +75,7 @@ DevOps持续交付体系（Guides）
       - 3.需遵守的原则
 
   
-#### 三、[产品运营期](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%96%B9%E6%B3%95/%E4%BA%A7%E5%93%81%E8%BF%90%E8%90%A5%E6%9C%9F.md)
+#### 三、[产品运营期](流程及方法/产品运营期.md)
     - 1.监测与决策
       - 1.1 生产环境监测体系
         - 1.1.1 后台服务监测
@@ -85,7 +85,7 @@ DevOps持续交付体系（Guides）
 
   
 ### 工具平台篇
-#### [工具平台](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E5%B7%A5%E5%85%B7%E5%B9%B3%E5%8F%B0/%E5%B7%A5%E5%85%B7%E5%B9%B3%E5%8F%B0.md)
+#### [工具平台](工具平台/工具平台.md)
 
     - （一）产品准备期
       - 1.需求及研发任务管理：禅道或Jira
@@ -108,7 +108,7 @@ DevOps持续交付体系（Guides）
  
 
 ### 评估体系篇
-#### [评估体系](https://github.com/yaocoder/Architect-CTO-growth/blob/master/DevOps%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E4%BD%93%E7%B3%BB/%E8%AF%84%E4%BC%B0%E4%BD%93%E7%B3%BB/%E8%AF%84%E4%BC%B0%E4%BD%93%E7%B3%BB.md)
+#### [评估体系](评估体系/评估体系.md)
     - 1.过程维度
       - 1.1 能力雷达图谱
     - 2. 结果维度
