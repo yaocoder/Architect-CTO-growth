@@ -225,8 +225,9 @@ RBAC在 kubernetes v1.5 中引入，在 v1.6 版 本时升级为 Beta 版本，�
 #### 集群联邦（Federation）
 Kubernetes的设计定位是单⼀集群在同⼀个地域内，因为同⼀个地区的⽹络性能才能 满⾜Kubernetes的调度和计算存储连接要求。⽽联合集群服务就是为提供跨地区跨服务商Kubernetes集群服务⽽设计的。（Kubernetes在1.3版本以后）
 
-### 参考文档
+### 参考资料
 * <https://kubernetes.io/>
 * <https://lib.jimmysong.io/>
 * [【尚硅谷】Kubernetes（kubernetes）入门到实战教程](https://www.bilibili.com/video/BV1GT4y1A756?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=4e9c1efc93607bc946493aeb6aa7e795)
 * [《七张图了解Kubernetes内部的架构》](https://xie.infoq.cn/article/b038313b4589a72937500068b)
+
