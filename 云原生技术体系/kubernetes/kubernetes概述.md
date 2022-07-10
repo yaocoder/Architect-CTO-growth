@@ -1,39 +1,41 @@
-一、kubernetes 概述
+kubernetes 概述
 =============
-- [一、kubernetes 概述](#一、kubernetes概述)
-    - [1、kubernetes 基本介绍](#1、kubernetes基本介绍)
-    - [2、kubernetes 功能和架构](#2、kubernetes功能和架构)
-      - [2.1 kubernetes 功能简介](#2-1-kubernetes功能简介)
-      - [2.2 kubernetes 集群架构](#2-2-kubernetes集群架构)
-    - [3、kubernetes的核心概念：API对象](#3、kubernetes的核心概念：api对象)
-      - [节点（Node）](#节点（node）)
-      - [Pod](#pod)
-      - [副本控制器（Replication Controller，RC）](#副本控制器（replication-controller，rc）)
-      - [副本集（Replica Set，RS）](#副本集（replica-set，rs）)
-      - [部署（Deployment）](#部署（deployment）)
-      - [服务（Service）](#服务（service）)
-      - [自动缩扩容（HPA HorizontalPodAutoscaling）](#自动缩扩容（hpa-horizontalpodautoscaling）)
-      - [任务（Job）](#任务（job）)
-      - [定时任务（Cron Job）](#定时任务（cron-job）)
-      - [有状态服务集（StatefulSet）](#有状态服务集（statefulset）)
-      - [后台守护服务集（DaemonSet）](#后台守护服务集（daemonset）)
-      - [存储卷（Volume）](#存储卷（volume）)
-      - [持久存储卷（Persistent Volume，PV）](#持久存储卷（persistent-volume，pv）)
-      - [持久存储卷声明（Persistent Volume Claim，PVC）](#持久存储卷声明（persistent-volume-claim，pvc）)
-      - [密钥（Secret）](#密钥（secret）)
-      - [ConfigMap](#configmap)
-      - [命名空间（Namespace）](#命名空间（namespace）)
-      - [基于角色的访问控制（RBAC Role-Based Access Control）](#基于角色的访问控制（rbac-role-based-access-control）)
-      - [存活探针（liveness probe）](#存活探针（liveness-probe）)
-      - [就绪探针（readiness probe）](#就绪探针（readiness-probe）)
-      - [集群联邦（Federation）](#集群联邦（federation）)
-    - [参考文档](#参考文档)
+- [kubernetes 概述](#kubernetes概述)
+  - [一、kubernetes 基本介绍](#一、kubernetes基本介绍)
+  - [二、kubernetes 功能和架构](#二、kubernetes功能和架构)
+    - [2.1 kubernetes 功能简介](#2-1-kubernetes功能简介)
+    - [2.2 kubernetes 集群架构](#2-2-kubernetes集群架构)
+  - [三、kubernetes的核心概念：API对象](#三、kubernetes的核心概念：api对象)
+    - [节点（Node）](#节点（node）)
+    - [Pod](#pod)
+    - [副本控制器（Replication Controller，RC）](#副本控制器（replication-controller，rc）)
+    - [副本集（Replica Set，RS）](#副本集（replica-set，rs）)
+    - [部署（Deployment）](#部署（deployment）)
+    - [服务（Service）](#服务（service）)
+    - [自动缩扩容（HPA HorizontalPodAutoscaling）](#自动缩扩容（hpa-horizontalpodautoscaling）)
+    - [任务（Job）](#任务（job）)
+    - [定时任务（Cron Job）](#定时任务（cron-job）)
+    - [有状态服务集（StatefulSet）](#有状态服务集（statefulset）)
+    - [后台守护服务集（DaemonSet）](#后台守护服务集（daemonset）)
+    - [存储卷（Volume）](#存储卷（volume）)
+    - [持久存储卷（Persistent Volume，PV）](#持久存储卷（persistent-volume，pv）)
+    - [持久存储卷声明（Persistent Volume Claim，PVC）](#持久存储卷声明（persistent-volume-claim，pvc）)
+    - [密钥（Secret）](#密钥（secret）)
+    - [ConfigMap](#configmap)
+    - [命名空间（Namespace）](#命名空间（namespace）)
+    - [基于角色的访问控制（RBAC Role-Based Access Control）](#基于角色的访问控制（rbac-role-based-access-control）)
+    - [存活探针（liveness probe）](#存活探针（liveness-probe）)
+    - [就绪探针（readiness probe）](#就绪探针（readiness-probe）)
+    - [集群联邦（Federation）](#集群联邦（federation）)
+  - [四、总结](#四、总结)
+  - [参考资料](#参考资料)
 
 
-### 1、kubernetes 基本介绍
+
+## 一、kubernetes 基本介绍
 Kubernetes是Google开源的一个容器编排引擎，提供了⾯向应⽤的容器集群部署和管理。Kubernetes的⽬标旨在消除编排物理/虚拟计算，⽹络和存储基础设施的负担，并使应⽤程序运营商和开发⼈员完全将重点放在以容器为中⼼的原语上进⾏⾃助运营。Kubernetes也提供稳定、兼容的基础（平台），⽤于构建定制化的workflows和更⾼级的⾃动化任务。 
-### 2、kubernetes 功能和架构
-#### 2.1 kubernetes 功能简介
+## 二、kubernetes 功能和架构
+### 2.1 kubernetes 功能简介
 Kubernetes具备完善的集群管理能⼒，包括多层次的安全防护和准⼊机制、多租户应⽤⽀撑能⼒、透明的服务注册和服务发现机制、内建负载均衡器、故障发现和⾃我修复能⼒、服务滚动升级和在线扩容、可扩展的资源⾃动调度机制、多粒度的资源配额管理能⼒。Kubernetes还提供完善的管理⼯具，涵盖开发、部署测试、运维监控等各个环节。
 * **服务发现和负载均衡**
 
@@ -56,7 +58,7 @@ Kubernetes 将重新启动失败的容器、替换容器、杀死不响应用户
 Kubernetes 允许我们存储和管理敏感信息，例如密码、OAuth令牌和ssh密钥。 我们可以在不重建容器镜像的情况下部署和更新密钥和应用程序配置，也无需在堆栈配置中暴露密钥。
 
 
-#### 2.2 kubernetes 集群架构
+### 2.2 kubernetes 集群架构
 ![kubernetes集群架构](image/kubernetes集群架构.png)
 <p align="center">图 kubernetes集群架构（来源于网络）</p>
 
@@ -86,7 +88,7 @@ Kubernetes 允许我们存储和管理敏感信息，例如密码、OAuth令牌�
     * **Dashboard**：提供Web页面，给kubernetes集群提供一个GUI的访问管理系统； 
     * **Federation**：提供跨可⽤区的多kubernetes集群统一管理能力。
 
-### 3、kubernetes的核心概念：API对象
+## 三、kubernetes的核心概念：API对象
 API对象是Kubernetes集群中的管理操作单元。Kubernetes集群系统每⽀持⼀项新功能，引⼊⼀项新技术，⼀定会新引⼊对应的API对象，⽀持对该功能的管理操作。
 
 Kubernetes对象是“**声明式 目标性记录**”：意味着对象创建后，Kubernetes系统将不断工作以确保其达到我们所定义对象的期望状态（Desired State）。
@@ -122,11 +124,11 @@ spec:
 * **spec**：描述了⽤户期望Kubernetes集群中的分布式系统达到的理想状态（Desired State），例如⽤户可以指定对象Deployment运行3个Pod副本；
 * **status**：描述了系统实际当前达到的状态 ，例如系统当前实际的Pod副本数为2；那么复制控制器当前的程序逻辑就是⾃动启动新的Pod，争取达到副本数为3。
 
-#### 节点（Node）
+### 节点（Node）
 
 Kubernetes集群中的计算能⼒由Node提供。Kubernetes集群中的 Node也就等同于Mesos集群中的Slave节点，是所有Pod运⾏所在的⼯作主机，可以是物理机也可以是虚拟机。不论是 物理机还是虚拟机，⼯作主机的统⼀特征是上⾯要运⾏kubelet管理节点上运⾏的容器。
 
-#### Pod
+### Pod
 Pod是Kubernetes的最重要的概念，是kubernetes系统中可以创建和管理的最小单元，是资源对象模型中由用户创建或部署的最小资源对象模型，也是在kubernetes上运行容器化应用的资源对象，其他的资源对象都是用来支撑或者扩展Pod对象功能的，比如控制器对象是用来管控Pod对象的，Service或者Ingress Gateway资源对象是用来暴露Pod引用对象的，PersistentVolume 资源对象是用来为Pod提供存储等等，kubernetes不会直接处理容器，而是Pod，Pod是由一个或多个 container组成。
 
 **（1）Pod vs 应用**
@@ -137,43 +139,43 @@ Pod是Kubernetes的最重要的概念，是kubernetes系统中可以创建和管
 
 一个Pod可以有多个容器，彼此间共享网络和存储资源，每个Pod中有一个Pause容器保存所有的容器状态， 通过管理pause容器，达到管理pod中所有容器的效果
 
-#### 副本控制器（Replication Controller，RC）
+### 副本控制器（Replication Controller，RC）
 当我们定义了一个RC并提交到Kubernetes集群中以后，Master 节点上的 Controller Manager 组件就得到通知， 定期检查系统中存活的 Pod,并确保目标 Pod 实例的数量刚好等于 RC 的预期值,如我们可以通过修改 RC 的副本 数量，来实现 Pod 的动态缩放功能。
 
 ``` kubectl scale rc nginx --replicas=5 ```
 
-#### 副本集（Replica Set，RS） 
+### 副本集（Replica Set，RS） 
 ReplicaSet 跟 ReplicationController 没有本质的不同，只是名字不一样，并且 ReplicaSet 支持集合式的 selector（ReplicationController 仅支持等式）。 Kubernetes 官方强烈建议避免直接使用 ReplicaSet，而应该通过 Deployment 来创建 RS 和 Pod。由于 ReplicaSet 是 ReplicationController 的代替物，因此用法基本相同，唯一的区别在于 ReplicaSet 支持集合式的 selector。
 
-#### 部署（Deployment）
+### 部署（Deployment）
 Deployment 为 Pod 和 ReplicaSet 提供了一个声明式定义 (declarative) 方法，用来替代以前的 Replication Controller 来方便的管理应用。典型的应用场景包括：
 * 定义 Deployment 来创建 Pod 和 ReplicaSet 
 * 滚动升级和回滚应用 
 * 扩容和缩容 
 * 暂停和继续 Deployment
 
-#### 服务（Service）
+### 服务（Service）
 Service 是 Kubernetes 非常核心的概念，通过创建 Service,可以为一组具有相同功能的容器应用提供一个统一的入口地址，并且将请求负载分发到后端的各个容器应用上。
 
-#### 自动缩扩容（HPA HorizontalPodAutoscaling）
+### 自动缩扩容（HPA HorizontalPodAutoscaling）
 Horizontal Pod Autoscaling 仅适用于 Deployment 和 ReplicaSet ，在V1版本中仅⽀持根据Pod的CPU利⽤率扩所容，在 v1alpha版本中，⽀持根据内存和⽤户⾃定义的metric扩缩容。
 
-#### 任务（Job）
+### 任务（Job）
 Job 负责批处理任务，即仅执行一次的任务，单Pod型任务有⼀个Pod成功就标志完成；多Pod任务保证有N个任务全部成功才标志完成；⼯作队列型任务根据应⽤确认的全局成功⽽标志成功。
 
-#### 定时任务（Cron Job）
+### 定时任务（Cron Job）
 管理基于时间的 Job，即： 
 * 在给定时间点只运行一次 
 * 周期性地在给定时间点运行
 
-#### 有状态服务集（StatefulSet）
+### 有状态服务集（StatefulSet）
 StatefulSet 是为了解决有状态服务的问题（对应 Deployments 和 ReplicaSets 是为无状态服务而设计），其应用场景包括：
 * 稳定的持久化存储，即 Pod 重新调度后还是能访问到相同的持久化数据，基于 PVC 来实现
 * 稳定的网络标志，即 Pod 重新调度后其 PodName 和 HostName 不变，基于 Headless Service （即没有 Cluster IP 的 Service ）来实现
 * 有序部署，有序扩展，即 Pod 是有顺序的，在部署或者扩展的时候要依据定义的顺序依次依次进 行（即从 0 到 N-1，在下一个 Pod 运行之前所有之前的 Pod 必须都是 Running 和 Ready 状态）， 基于 init containers 来实现
 * 有序收缩，有序删除（即从 N-1 到 0）
 
-#### 后台守护服务集（DaemonSet）
+### 后台守护服务集（DaemonSet）
 DaemonSet 确保全部（或者一些）Node 上运行一个此类Pod。当有 Node 加入集群时，也会为他们新增一个此类Pod 。当有 Node 从集群移除时，这些 Pod 也会被回收。删除 DaemonSet 将会删除它创建的所有 Pod
 
 使用 DaemonSet 的一些典型用法：
@@ -182,18 +184,18 @@ DaemonSet 确保全部（或者一些）Node 上运行一个此类Pod。当有 N
 * 在每个 Node 上运行日志收集 daemon，例如fluentd、logstash。 
 * 在每个 Node 上运行监控 daemon，例如 Prometheus Node Exporter
 
-#### 存储卷（Volume）
+### 存储卷（Volume）
 Volume 是 Pod 中能够被多个容器访问的共享目录。Kubernetes 的 Volume 定义在 Pod 上， 它被一个 Pod 中的多个容器挂载到具体的文件目录下。Volume 与 Pod 的生命周期相同。
 
 Kubernetes⽀持⾮常多的存储卷类型，如公有云平台的存储，包括AWS，Google和Azure云；⽀持多种分布式存储包括GlusterFS和Ceph；也⽀持较容易使⽤的主机本地⽬录emptyDir, hostPath和NFS。
 
-#### 持久存储卷（Persistent Volume，PV）
+### 持久存储卷（Persistent Volume，PV）
 PersistentVolume（PV）是集群中由管理员配置的一段网络存储。它是集群中的资源，就 像节点是集群资源一样。 PV 是容量插件，如 Volumes，但其生命周期独立于使用 PV 的任 何单个 pod。
 
-#### 持久存储卷声明（Persistent Volume Claim，PVC）
+### 持久存储卷声明（Persistent Volume Claim，PVC）
 PersistentVolumeClaim（PVC）是由用户进行存储的请求，允许用户使用抽象存储资源。 它类似于 pod。 Pod 消耗节点 资源，PVC 消耗 PV 资源。Pod 可以请求特定级别的资源（CPU 和内存）。声明可以请求特 定的大小和访问模式（例如，可以一次读/写或多次只读）。
 
-#### 密钥（Secret）
+### 密钥（Secret）
 Secret是⽤来保存和传递密码、密钥、认证凭证这些敏感信息的对象。使⽤Secret的好处是可以避免把敏感信息明⽂写在配置⽂件⾥。在Kubernetes集群中配置和使⽤服务不可避免的要⽤到各种敏感信息实现登录、认证等功能。
 
 Secret 有三种类型
@@ -201,13 +203,13 @@ Secret 有三种类型
 * Opaque : base64 编码格式的 Secret,用来存储密码、密钥等
 * kubernetes.io/dockerconfigjson ：用来存储私有 docker registry 的认证信息
 
-#### ConfigMap 
+### ConfigMap 
 ConfigMap 功能在 Kubernetes1.2 版本中引入，许多应用程序会从配置文件、命令行参数 或环境变量中读取配 置信息。ConfigMap API给我们提供了向容器中注入配置信息的机 制，ConfigMap 可以被用来保存单个属性，也 可以用来保存整个配置文件或者 JSON 二进 制大对象。
 
-#### 命名空间（Namespace）
+### 命名空间（Namespace）
 Namespace 在很多情况下用于实现多用户的资源隔离，通过将集群内部的资源对象分配到不同的 Namespace 中， 形成逻辑上的分组，便于不同的分组在共享使用整个集群的资源同时还能被分别管理。Kubernetes 集群在启动后，会创建一个名为"default"的 Namespace， 如果不特别指明 Namespace,则用户创建的 Pod，RC，Service 都将 被系统 创建到这个默 认的名为 default 的 Namespace 中。
 
-#### 基于角色的访问控制（RBAC Role-Based Access Control）
+### 基于角色的访问控制（RBAC Role-Based Access Control）
 RBAC在 kubernetes v1.5 中引入，在 v1.6 版 本时升级为 Beta 版本，并成为 kubeadm 安装方式下的默认选项，相对于其他访问控制方式， 新的 RBAC 具有如下优势： 
 
 （1）对集群中的资源和非资源权限均有完整的覆盖 
@@ -216,19 +218,19 @@ RBAC在 kubernetes v1.5 中引入，在 v1.6 版 本时升级为 Beta 版本，�
  
 （3）可以在运行时进行调整，无需重启 API Server 要使用 RBAC 授权模式，需要在 API Server 的启动参数中加上--authorization-mode=RBAC
 
-#### 存活探针（liveness probe）
+### 存活探针（liveness probe）
 用于判断容器是否存活，即 Pod 是否为 running 状态，如果 LivenessProbe 探针探测到容 器不健康，则 kubelet 将 kill 掉容器，并根据容器的重启策略是否重启。kubernetes 提供 livenessProbe 来检测应用程序是否正常运行，并且对相应状况进行相应的补救措施。
 
-#### 就绪探针（readiness probe）
+### 就绪探针（readiness probe）
 用于判断容器是否启动完成，即容器的 Ready 是否为 True，可以接收请求，如果 ReadinessProbe 探测失败，则容器的 Ready 将为 False，控制器将此 Pod 的 Endpoint 从对 应的 service 的 Endpoint 列表中移除，从此不再将任何请求调度此 Pod 上，直到下次探测成功。通过使用 Readiness 探针，Kubernetes 能够等待应用程序完全启动，然后才允许服务将流量发送到新副本。
 
-#### 集群联邦（Federation）
+### 集群联邦（Federation）
 Kubernetes的设计定位是单⼀集群在同⼀个地域内，因为同⼀个地区的⽹络性能才能 满⾜Kubernetes的调度和计算存储连接要求。⽽联合集群服务就是为提供跨地区跨服务商Kubernetes集群服务⽽设计的。（Kubernetes在1.3版本以后）
 
-### 4、总结
+## 四、总结
 **Kubernetes 是一款用于管理容器化工作负载和服务的可移植、可扩展的开源平台，拥有庞大、快速发展的生态系统，它面向基础设施，将计算、网络、存储等资源进行紧密整合，为容器提供最佳运行环境，并面向应用提供封装好的、易用的工作负载与服务编排接口，以及运维所需的资源规格、弹性、运行参数、调度等配置管理接口，是新一代的云原生基础设施平台。**
 
-### 参考资料
+## 参考资料
 * <https://kubernetes.io/>
 * <https://lib.jimmysong.io/>
 * [【尚硅谷】Kubernetes（kubernetes）入门到实战教程](https://www.bilibili.com/video/BV1GT4y1A756?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=4e9c1efc93607bc946493aeb6aa7e795)
