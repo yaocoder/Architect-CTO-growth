@@ -58,7 +58,7 @@ Istio 最大化地利用了 Kubernetes 这个基础设施，与之叠加在一�
 > Istio 不仅数据面 Envoy 跑在 Kubernetes 的 Pod 里，其控制面也运行在Kubernetes 集群中，其控制面组件本身存在的形式也是 Kubernetes Deployment 和 Service，基于 Kubernetes 扩展和构建。
    
 ![Istio与Kubernetes架构的关系](image/Istio与Kubernetes架构的关系.png)
-<p align="center">图 Istio 与 Kubernetes架构的关系 （图源 华为Istio培训课程）</p>
+<p align="center">图 Istio与Kubernetes 架构的关系 （图源 华为Istio培训课程）</p>
 
 ## 二、Istio 架构
 Istio 的架构如下如所示，分为控制面和数据面两部分。可以看到，控制面主要包括 Pilot、Mixer、Citadel 服务组件构成；数据面由伴随每个应用程序部署的 Proxy 代理程序 Envoy 组成
@@ -107,51 +107,51 @@ istio-pilot是 Istio 的控制中枢 Pilot 服务，和传统的微服务架构�
 
 3. **执行**：在流量访问的时候执行治理规则
 
-### 2.2.2 istio Mixer
+#### 2.2.2 istio Mixer
 Mixer 在 Istio 中的作用
 * 功能上：**负责策略控制和遥测收集**
 * 架构上：**提供插件模型，可以扩展和定制**
 
 在部署上，Istio 控制面部署了两个 Mixer 组件：**istio-telemetry 和 istio-policy**，分别处理遥测数据的收集和策略的执行。
 
-#### istio-telemetry
+##### istio-telemetry
 
 如下图所示，当网格中的两个服务间有调用发生时，服务的代理 Envoy 就会上报遥测数据给 istio-telemetry 服务组件，istio-telemetry 服务组件则根据配置将生成访问 Metric 等数据分发给后端的遥测服务。数据面代理通过 Report 接口上报数据时访问数据会被批量上报。在架构上，Mixer 作为中介来解耦数据面和不同后端的对接，以提供灵活性和扩展能力。运维人员可以动态配置各种遥测后端，来收集指定的服务运行数据。
 
 ![Mixer遥测](image/Mixer遥测.png)
 <p align="center">图 Mixer 遥测 （图源 《云原生服务网格Istio》）</p>
 
-#### istio-policy
+##### istio-policy
 
 如下图，数据面在转发服务的请求前调用 istio-policy 的 Check 接口检查是否允许访问，Mixer 根据配置将请求转发到对应的 Adapter 做对应检查，给代理返回允许访问还是拒绝。可以对接如配额、授权、黑白名单等不同的控制后端，对服务间的访问进行可扩展的控制。
 
 ![Mixer策略控制](image/Mixer策略控制.png)
 <p align="center">图 Mixer 策略控制 （图源 《云原生服务网格Istio》）</p>
 
-#### istio-citadel
+#### 2.2.3 istio-citadel
 
 istio-citadel 是 Istio 的核心安全组件，提供了自动生成、分发、轮换与撤销密钥和证书功能。Citadel 一直监听 Kube-apiserver，以 Secret 的形式为每个服务都生成证书密钥，并在 Pod 创建时挂载到 Pod 上，代理容器使用这些文件来做服务身份认证，进而代理两端服务实现双向 TLS 认证、通道加密、访问授权等安全功能，这样用户就无需在代码里面维护证书密钥了。如下图所示
 
 ![Citadel密钥证书维护](image/Citadel密钥证书维护.png)
 <p align="center">图 Citadel 密钥证书维护 （图源 《云原生服务网格Istio》）</p>
 
-#### istio-galley
+#### 2.2.4 istio-galley
 
 istio-galley 并不直接向数据面提供业务能力，而是在控制面上向其他组件提供支持。Galley 作为负责配置管理的组件，验证配置信息的格式和内容的正确性，并将这些配置信息提供给管理面的 Pilot 和 Mixer 服务使用，这样其他管理面组件只用和 Galley 打交道，从而与底层平台解耦。
 
-#### istio-sidecar-injector
+#### 2.2.5 istio-sidecar-injector
 
 istio-sidecar-injector 是负责自动注入的组件，只要开启了自动注入，在Pod创建时就会自动调用 istio-sidecar-injector 向 Pod 中注入 Sidecar 容器。
 
 在 Kubernetes 环境下，根据自动注入配置，Kube-apiserver 在拦截到 Pod 创建的请求时，会调用自动注入服务 istio-sidecar-injector 生成 Sidecar 容器的描述并将其插入原 Pod 的定义中，这样，在创建的 Pod 内除了包括业务容器，还包括 Sidecar 容器。这个注入过程对用户透明。
 
-#### istio-proxy
+#### 2.2.6 istio-proxy
 
 在 Istio 的描述中，Envoy、Sidecar、Proxy 等术语有时混着用，都表示 Istio 数据面的轻量代理。但关注 Pod 的详细信息，会发现这个容器的正式名字是 istio-proxy，不是通用的 Envoy 镜像，而是叠加了 Istio 的 Proxy 功能的一个扩展版本。另外，在istio-proxy 容器中除了有 Envoy，还有一个 pilot-agent 的守护进程。
 
 > Envoy 是用 C++ 开发的非常有影响力的轻量级高性能开源服务代理。作为服务网格的数据面，Envoy 提供了动态服务发现、负载均衡、TLS、HTTP/2 及 gRPC 代理、熔断器、健康检查、流量拆分、灰度发布、故障注入等功能，Istio 大部分治理能力最终都落实到 Envoy 的实现上。
 
-#### istio-ingressgateway
+#### 2.2.7 istio-ingressgateway
 
 在Istio中，Gateway控制着网格边缘的服务暴露。istio-ingressgateway 就是入口处的 Gateway，从网格外访问网格内的服务就是通过这个 Gateway 进行的。
 
@@ -162,7 +162,7 @@ Gateway 根据流入流出方向分为 ingress gateway 和 egress gateway
 >网格入口网关 istio-ingressgateway 的负载和网格内的 Sidecar 是同样的执行体，也和网格内的其他 Sidecar 一样从 Pilot 处接收流量规则并执行。
 
 
-#### 其他组件
+#### 2.2.8 其他组件
 除了以“ istio ”为前缀的以上几个 Istio 自有的组件，在集群中一般还安装 Jaeger-agent、Jaeger-collector、Jaeger-query、Kiali、Prometheus、Tracing、Zipkin 组件，这些组件提供了 Istio 的调用链、监控等功能，可以选择安装来完成完整的服务监控管理功能。
 
 
