@@ -33,7 +33,9 @@ kubernetes 概述
 
 
 ## 一、kubernetes 基本介绍
-Kubernetes是Google开源的一个容器编排引擎，提供了⾯向应⽤的容器集群部署和管理。Kubernetes的⽬标旨在消除编排物理/虚拟计算，⽹络和存储基础设施的负担，并使应⽤程序运营商和开发⼈员完全将重点放在以容器为中⼼的原语上进⾏⾃助运营。Kubernetes也提供稳定、兼容的基础（平台），⽤于构建定制化的工作流和更⾼级的⾃动化任务。 
+* Kubernetes是Google开源的一个容器编排引擎，提供了⾯向应⽤的容器集群部署和管理。
+* Kubernetes的⽬标旨在消除编排物理/虚拟计算，⽹络和存储基础设施的负担，并使应⽤程序运营商和开发⼈员完全将重点放在以容器为中⼼的原语上进⾏⾃助运营。
+* Kubernetes也提供稳定、兼容的基础（平台），⽤于构建定制化的工作流和更⾼级的⾃动化任务。 
 ## 二、kubernetes 功能和架构
 ### 2.1 kubernetes 功能简介
 Kubernetes具备完善的集群管理能⼒，包括多层次的安全防护和准⼊机制、多租户应⽤⽀撑能⼒、透明的服务注册和服务发现机制、内建负载均衡器、故障发现和⾃我修复能⼒、服务滚动升级和在线扩容、可扩展的资源⾃动调度机制、多粒度的资源配额管理能⼒。Kubernetes还提供完善的管理⼯具，涵盖开发、部署测试、运维监控等各个环节。
@@ -93,7 +95,7 @@ API 对象是 Kubernetes 集群中的管理操作单元。Kubernetes 集群系�
 
 Kubernetes对象是“**声明式 目标性记录**”：意味着对象创建后，Kubernetes 系统将不断工作以确保其达到我们所定义对象的期望状态（Desired State）。
 
-操作 Kubernetes 对象，无论是创建、修改，或者删除，需要使用 Kubernetes API。 比如，当使用 kubectl 命令行接口（CLI）时，CLI 会调用必要的 Kubernetes API； 当在程序中使用客户端库，来直接调用 Kubernetes API。
+操作 Kubernetes 对象，无论是创建、修改，或者删除，需要使用 Kubernetes API。 比如，当使用 kubectl 命令行接口（CLI）时，CLI 会调用必要的 Kubernetes API； 也可在程序中使用客户端库，来直接调用 Kubernetes API。
 
 * 一个 Deployment 对象的 yaml 示例文件
 ```
@@ -140,7 +142,7 @@ Pod 是 Kubernetes 的最重要的概念，是 kubernetes 系统中可以创建�
 一个 Pod 中可以有多个容器，彼此间共享网络和存储资源，每个 Pod 中有一个 Pause 容器保存所有的容器状态，通过管理 pause 容器，达到管理 pod 中所有容器的效果
 
 ### 副本控制器（Replication Controller，RC）
-当我们定义了一个 RC 并提交到 Kubernetes 集群中以后，Master 节点上的 Controller Manager 组件就得到通知， 定期检查系统中存活的 Pod,并确保目标 Pod 实例的数量刚好等于 RC 的预期值,如我们可以通过修改 RC 的副本 数量，来实现 Pod 的动态缩放功能。
+当我们定义了一个 RC 并提交到 Kubernetes 集群中以后，Master 节点上的 Controller Manager 组件就得到通知， 定期检查系统中存活的 Pod，并确保目标 Pod 实例的数量刚好等于 RC 的预期值，如我们可以通过修改 RC 的副本 数量，来实现 Pod 的动态缩放功能。
 
 例：``` kubectl scale rc nginx --replicas=5 ```
 
@@ -155,7 +157,7 @@ Deployment 为 Pod 和 ReplicaSet 提供了一个声明式定义 (declarative) �
 * 暂停和继续 Deployment
 
 ### 服务（Service）
-Service 是 Kubernetes 非常核心的概念，通过创建 Service,可以为一组具有相同功能的容器应用提供一个统一的入口地址，并且将请求负载分发到后端的各个容器应用上。
+Service 是 Kubernetes 非常核心的概念，通过创建 Service，可以为一组具有相同功能的容器应用提供一个统一的入口地址，并且将请求负载分发到后端的各个容器应用上。
 
 ### 自动缩扩容（HPA HorizontalPodAutoscaling）
 Horizontal Pod Autoscaling 仅适用于 Deployment 和 ReplicaSet ，在 V1 版本中仅⽀持根据 Pod 的 CPU 利⽤率扩缩容，在 v1alpha 版本中，⽀持根据内存和⽤户⾃定义的 metric 扩缩容。
@@ -207,7 +209,7 @@ Secret 有三种类型
 ConfigMap 功能在 Kubernetes1.2 版本中引入，许多应用程序会从配置文件、命令行参数或环境变量中读取配置信息。ConfigMap API 给我们提供了向容器中注入配置信息的机 制，ConfigMap 可以被用来保存单个属性，也可以用来保存整个配置文件或者 JSON 二进 制大对象。
 
 ### 命名空间（Namespace）
-Namespace 在很多情况下用于实现多用户的资源隔离，通过将集群内部的资源对象分配到不同的 Namespace 中， 形成逻辑上的分组，便于不同的分组在共享使用整个集群的资源同时还能被分别管理。Kubernetes 集群在启动后，会创建一个名为"default"的 Namespace， 如果不特别指明 Namespace ,则用户创建的 Pod，RC，Service 都将被系统创建到这个默认的名为 default 的 Namespace 中。
+Namespace 在很多情况下用于实现多用户的资源隔离，通过将集群内部的资源对象分配到不同的 Namespace 中， 形成逻辑上的分组，便于不同的分组在共享使用整个集群的资源同时还能被分别管理。Kubernetes 集群在启动后，会创建一个名为"default"的 Namespace， 如果不特别指明 Namespace ，则用户创建的 Pod、RC、Service 都将被系统创建到这个默认的名为 default 的 Namespace 中。
 
 ### 基于角色的访问控制（RBAC Role-Based Access Control）
 RBAC在 kubernetes v1.5 中引入，在 v1.6 版 本时升级为 Beta 版本，并成为 kubeadm 安装方式下的默认选项，相对于其他访问控制方式， 新的 RBAC 具有如下优势： 
