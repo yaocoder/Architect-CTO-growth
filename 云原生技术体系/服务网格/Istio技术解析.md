@@ -165,4 +165,4 @@ Gateway 根据流入流出方向分为 ingress gateway 和 egress gateway
 #### 2.2.8 其他组件
 除了以“ istio ”为前缀的以上几个 Istio 自有的组件，在集群中一般还安装 Jaeger-agent、Jaeger-collector、Jaeger-query、Kiali、Prometheus、Tracing、Zipkin 组件，这些组件提供了 Istio 的调用链、监控等功能，可以选择安装来完成完整的服务监控管理功能。
 
-
+[ 下一章节：《Istio流量治理》 ](./Istio的流量治理.md)
