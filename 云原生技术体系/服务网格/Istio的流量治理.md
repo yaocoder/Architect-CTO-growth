@@ -198,8 +198,7 @@ Gateway 只做四层到六层的端口、TLS 配置等基本功能，VirtualServ
 <div align=center>
 <img src="image/Istio 服务访问入口Gateway.png" style="zoom:20%" />
 </div>
-<p align="center">图  Istio 服务访问入口Gateway （图源 《云原生服务网格Istio》）</p
-
+<p align="center">图  Istio 服务访问入口Gateway （图源 《云原生服务网格Istio》）</p>
 
 ### 3、外部接入服务治理
 关于第三方服务的管理，专门有一种 Open Service Broker API 来实现第三方软件的服务化，这种 API 通过定义 Catalog、Provisioning、Updating、Binding、Unbinding 等标准接口接入服务，在和 Kubernetes 结合的场景下，使用 Service Catalog 的扩展机制可以方便地在集群中管理云服务商提供的第三方服务，如下图所示
