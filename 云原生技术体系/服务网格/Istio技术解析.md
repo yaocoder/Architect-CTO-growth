@@ -1,12 +1,12 @@
 Istio 技术解析
 =============
-> **注**：因为造不出更优秀的轮子，所以以下内容多从书籍《云原生服务网格Istio：原理、实践、架构与源码解析》综合总结而来 ，个人认为这本书时学习Istio的最佳资料，常读常新
+> **注**：因为造不出更优秀的轮子，所以以下内容多从书籍《云原生服务网格Istio：原理、实践、架构与源码解析》综合总结而来 ，个人认为这本书时学习Istio的最佳资料，常读常新！
 
 ## 一、Istio 简介
 Istio 是 Service Mesh 实现中最成熟也最受欢迎的项目，由 Google、IBM 和 Lyft 开源。可以简单理解为：
 * **Istio 是一个用于服务治理的开放平台。**
-* **Istio 是一个 Service Mesh 形态的用于服务治理的开放平台。**
-* **Istio 是一个与 Kubernetes 紧密结合的适用于云原生场景的 Service Mesh 形态的用于服务治理的开放平台。**
+* 进一步：**Istio 是一个 Service Mesh 形态的用于服务治理的开放平台。**
+* 再进一步：**Istio 是一个与 Kubernetes 紧密结合的适用于云原生场景的 Service Mesh 形态的用于服务治理的开放平台。**
 
 ### 1.1 Istio 服务治理涉及：
 
@@ -70,20 +70,113 @@ Istio 的架构如下如所示，分为控制面和数据面两部分。可以�
 ![Istio的工作机制示意图](image/Istio的工作机制示意图.png)
 <p align="center">图 Istio 的工作机制示意图 （图源 《云原生服务网格Istio》）</p>
 
->  业务示例：天气预报
+>  如上图：本文档采用《云原生服务网格Istio》书籍中的业务示例——天气预报应用
 
 1. **自动注入**：指在创建应用程序时自动注入 Sidecar 代理。在 Kubernetes 场景下创建 Pod 时，Kube-apiserver 调用管理面组件的 Sidecar-Injector 服务，自动修改应用程序的描述信息并注入 Sidecar。在真正创建 Pod 时，在创建业务容器的同时在 Pod 中创建 Sidecar 容器。
 2. **流量拦截**：在 Pod 初始化时设置 iptables 规则，当有流量到来时，基于配置的iptables 规则拦截业务容器的 Inbound 流量和 Outbound 流量到 Sidecar 上。应用程序感知不到 Sidecar 的存在，还以原本的方式进行互相访问。如上图中，流出frontend 服务的流量会被 frontend 服务侧的 Envoy 拦截，而当流量到达forecast 容器时，Inbound 流量被 forecast 服务侧的 Envoy 拦截。
 3. **服务发现**：服务发起方的 Envoy 调用管理面组件 Pilot 的服务发现接口获取目标服务的实例列表。在上图中，frontend 服务侧的 Envoy 通过 Pilot 的服务发现接口得到 forecast 服务各个实例的地址，为访问做准备。
 4. **负载均衡**：服务发起方的 Envoy 根据配置的负载均衡策略选择服务实例，并连接对应的实例地址。在上图中，数据面的各个 Envoy 从 Pilot 中获取 forecast 服务的负载均衡配置，并执行负载均衡动作。
-5. **流量治理**：Envoy 从 Pilot 中获取配置的流量规则，在拦截到 Inbound 流量和Outbound 流量时执行治理逻辑。在上图中，frontend 服务侧的 Envoy 从 Pilot 中获取流量治理规则，并根据该流量治理规则将不同特征的流量分发到 forecast 服务的v1 或 v2 版本。当然，这只是 Istio 流量治理的一个场景。
+5. **流量治理**：Envoy 从 Pilot 中获取配置的流量规则，在拦截到 Inbound 流量和Outbound 流量时执行治理逻辑。在上图中，frontend 服务侧的 Envoy 从 Pilot 中获取流量治理规则，并根据该流量治理规则将不同特征的流量分发到 forecast 服务的v1 或 v2 版本。这只是 Istio 流量治理的场景之一。
 6. **访问安全**：在服务间访问时通过双方的 Envoy 进行双向认证和通道加密，并基于服务的身份进行授权管理。在上图中，Pilot 下发安全相关配置，在 frontend 服务和forecast 服务的 Envoy 上自动加载证书和密钥来实现双向认证，其中的证书和密钥由另一个管理面组件 Citadel 维护。
 7. **服务遥测**：在服务间通信时，通信双方的 Envoy 都会连接管理面组件 Mixer 上报访问数据，并通过 Mixer 将数据转发给对应的监控后端。在上图中，frontend 服务对 forecast 服务的访问监控指标、日志和调用链都可以通过这种方式收集到对应的监控后端。
-8. **策略执行**：在进行服务访问时，通过 Mixer 连接后端服务来控制服务间的访问，判断对访问是放行还是拒绝。在上图中，Mixer 后端可以对接一个限流服务对从 frontend服务到 forecast 服务的访问进行速率控制。
+8. **策略执行**：在进行服务访问时，通过 Mixer 连接后端服务来控制服务间的访问，判断对访问是放行还是拒绝。在上图中，Mixer 后端可以对接一个限流服务对从 frontend 服务到 forecast 服务的访问进行速率控制。
 9. **外部访问**：在网格的入口处有一个 Envoy 扮演入口网关的角色。在上图中，外部服务通过 Gateway 访问入口服务 frontend，对 frontend 服务的负载均衡和一些流量治理策略都在这个Gateway上执行。
 
-### 2.2 Istio的主要组件
-#### 2.2.1 istio-pilot
+### 2.2 Istio的服务模型
+Istio 的服务、服务版本和服务实例等几个对象构成了 Istio 的服务模型。Istio 支持将由服务、服务版本和服务实例构造的抽象模型映射到不同的平台上，基于Kubernetes 的场景, Istio 的几个资源对象就是基于 Kubernetes 的相应资源对象构建的，加上部分约束（端口命名、 服务关联、Deployment 使用 app 和 version 标签）来满足 Istio 服务模型的要求。
+
+#### 2.2.1、Istio的服务
+**从逻辑上看**，服务是 Istio 主要管理的资源对象，是一个抽象概念，主要包含 HostName 和 Ports 等属性，并指定了 Service 的域名和端口列表。每个端口都包含端口名称、端口号和端口的协议。
+
+**从物理层面看**，Istio 服务的存在形式就是 Kubernetes 的 Service，在启用了 Istio 的集群中创建 Kubernetes 的 Service 时只要满足以上约束，就可以转换为 Istio 的 Service 并配置规则进行流量治理。
+> Service 是 Kubernetes 的一个核心资源，用户通过一个域名或者虚拟的 IP 就能访问到后端 Pod，避免向用户暴露 Pod 地址的问题，特别是在 Kubernetes 中，Pod 作为一个资源创建、调度和管理的最小部署单元的封装，本来就是动态变化的，在节点删除、资源变化等多种情况下都可能被重新调度，Pod 的后端地址也会随之变化。
+
+**一个Istio Service 示例**
+
+```
+apiversion: v1
+kind: Service
+metadata:
+  name: forecast
+spec:
+  ports:
+  - port: 3002
+    tagetPort: 3002
+    name: http        #Istio 服务的约束，在端口名称上指定协议
+  selector:
+    app: forecast
+```
+在 Istio 中，Service 是治理的对象，是 Istio 中的核心管理实体，所以在 Istio 中，Service 是一个提供了对外访问能力的执行体，可以将其理解为一个定义了服务的工作负载，没有访问方式的工作负载不是 Istio 的管理对象，Kubernetes 的 Service 定义就是 Istio 服务的元数据。
+
+#### 2.2.2 Istio 的服务版本
+在 Istio 中多个版本的定义是将一个 Service 关联到多个 Deployment ，每个Deployment 都对应服务的一个版本。
+<div align=center>
+<img src="image/Istio服务版本.png" style="zoom:25%" />
+</div>
+<p align="center">图  Istio的服务版本 （图源 《云原生服务网格Istio》）</p>
+
+> forecast-v1 和 forecast-v2 这两个 Deployment 分别对应服务的两个版本
+
+```
+apiVersion: app/v1
+kind: Deployment
+metadata:
+  name: forecast-v1
+  labels:
+    app: forecast
+    version: v1
+  spec:
+    replicas: 2
+    template:
+      metadata:
+        labels:
+          app: forecast
+          version: v1
+      spec:
+        containers:
+        - name: forecasts
+          image: ***
+          ports:
+          - containerPort: 3002 
+```
+```
+apiVersion: app/v1
+kind: Deployment
+metadata:
+  name: forecast-v2
+  labels:
+    app: forecast
+    version: v2
+  spec:
+    replicas: 2
+    template:
+      metadata:
+        labels:
+          app: forecast
+          version: v2
+      spec:
+        containers:
+        - name: forecast
+          image: ***
+          ports:
+          - containerPort: 3002 
+```
+* 这两个 Deployment 都有相同的“app：forecast”标签，正是这个标签和 Service 的标签选择器一致，才保证了 Service 能关联到两个 Deployment 对应的 Pod。
+* 这两个 Deployment 都有不同的镜像版本，因此各自创建的 Pod 也不同；这两个 Deployment 的 version 标签也不同，分别为 v1 和 v2，表示这是服务的不同版本，这个不同的版本标签用来定义不同的 Destination，进而执行不同的路由规则。
+
+#### 2.2.3 Istio的服务实例
+服务实例是真正处理服务请求的后端，Istio 的ServiceInstance 主要包括 Endpoint、Service、Labels、AvailabilityZone 和 ServiceAccount 等属性，Endpoint 是其中最主要的属性，表示这个实例对应的网络后端（ip：port），Service 表示这个服务实例归属的服务。
+> Istio 的服务实例对应Kubernetes的Endpoint
+
+<div align=center>
+<img src="image/Istio的服务实例.png" style="zoom:25%" />
+</div>
+<p align="center">图  Istio的服务实例（图源 《云原生服务网格Istio》）</p>
+
+
+
+### 2.3 Istio的主要组件
+#### 1. istio-pilot
 istio-pilot是 Istio 的控制中枢 Pilot 服务，和传统的微服务架构对比，Pilot 至少涵盖服务注册中心和 Config Server 等管理组件的功能。
 ##### 服务发现
 ![Pilot的服务发现功能](image/Pilot的服务发现功能.png)
@@ -107,7 +200,7 @@ istio-pilot是 Istio 的控制中枢 Pilot 服务，和传统的微服务架构�
 
 3. **执行**：在流量访问的时候执行治理规则
 
-#### 2.2.2 istio Mixer
+#### 2. istio Mixer
 Mixer 在 Istio 中的作用
 * 功能上：**负责策略控制和遥测收集**
 * 架构上：**提供插件模型，可以扩展和定制**
@@ -128,41 +221,41 @@ Mixer 在 Istio 中的作用
 ![Mixer策略控制](image/Mixer策略控制.png)
 <p align="center">图 Mixer 策略控制 （图源 《云原生服务网格Istio》）</p>
 
-#### 2.2.3 istio-citadel
+#### 3. istio-citadel
 
 istio-citadel 是 Istio 的核心安全组件，提供了自动生成、分发、轮换与撤销密钥和证书功能。Citadel 一直监听 Kube-apiserver，以 Secret 的形式为每个服务都生成证书密钥，并在 Pod 创建时挂载到 Pod 上，代理容器使用这些文件来做服务身份认证，进而代理两端服务实现双向 TLS 认证、通道加密、访问授权等安全功能，这样用户就无需在代码里面维护证书密钥了。如下图所示
 
 ![Citadel密钥证书维护](image/Citadel密钥证书维护.png)
 <p align="center">图 Citadel 密钥证书维护 （图源 《云原生服务网格Istio》）</p>
 
-#### 2.2.4 istio-galley
+#### 4. istio-galley
 
 istio-galley 并不直接向数据面提供业务能力，而是在控制面上向其他组件提供支持。Galley 作为负责配置管理的组件，验证配置信息的格式和内容的正确性，并将这些配置信息提供给管理面的 Pilot 和 Mixer 服务使用，这样其他管理面组件只用和 Galley 打交道，从而与底层平台解耦。
 
-#### 2.2.5 istio-sidecar-injector
+#### 5. istio-sidecar-injector
 
 istio-sidecar-injector 是负责自动注入的组件，只要开启了自动注入，在Pod创建时就会自动调用 istio-sidecar-injector 向 Pod 中注入 Sidecar 容器。
 
 在 Kubernetes 环境下，根据自动注入配置，Kube-apiserver 在拦截到 Pod 创建的请求时，会调用自动注入服务 istio-sidecar-injector 生成 Sidecar 容器的描述并将其插入原 Pod 的定义中，这样，在创建的 Pod 内除了包括业务容器，还包括 Sidecar 容器。这个注入过程对用户透明。
 
-#### 2.2.6 istio-proxy
+#### 6. istio-proxy
 
-在 Istio 的描述中，Envoy、Sidecar、Proxy 等术语有时混着用，都表示 Istio 数据面的轻量代理。但关注 Pod 的详细信息，会发现这个容器的正式名字是 istio-proxy，不是通用的 Envoy 镜像，而是叠加了 Istio 的 Proxy 功能的一个扩展版本。另外，在istio-proxy 容器中除了有 Envoy，还有一个 pilot-agent 的守护进程。
+在 Istio 的描述中，Envoy、Sidecar、Proxy 等术语有时混着用，都表示 Istio 数据面的轻量代理。查看 Pod 的详细信息，会发现这个容器的正式名字是 istio-proxy，不是通用的 Envoy 镜像，而是叠加了 Istio 的 Proxy 功能的一个扩展版本。另外，在istio-proxy 容器中除了有 Envoy，还有一个 pilot-agent 的守护进程。
 
 > Envoy 是用 C++ 开发的非常有影响力的轻量级高性能开源服务代理。作为服务网格的数据面，Envoy 提供了动态服务发现、负载均衡、TLS、HTTP/2 及 gRPC 代理、熔断器、健康检查、流量拆分、灰度发布、故障注入等功能，Istio 大部分治理能力最终都落实到 Envoy 的实现上。
 
-#### 2.2.7 istio-ingressgateway
+#### 7. istio-ingressgateway
 
 在Istio中，Gateway控制着网格边缘的服务暴露。istio-ingressgateway 就是入口处的 Gateway，从网格外访问网格内的服务就是通过这个 Gateway 进行的。
 
 Gateway 根据流入流出方向分为 ingress gateway 和 egress gateway
-* Ingress gateway: 控制外部服务访问网格内服务，配合VirtualService
+* **Ingress gateway**: 控制外部服务访问网格内服务，配合VirtualService
 
-* Egress gateway:控制网格内服务访问外部服务, 配合DestinationRule ServiceEntry使用
+* **Egress gateway**:控制网格内服务访问外部服务, 配合DestinationRule ServiceEntry使用
 >网格入口网关 istio-ingressgateway 的负载和网格内的 Sidecar 是同样的执行体，也和网格内的其他 Sidecar 一样从 Pilot 处接收流量规则并执行。
 
 
-#### 2.2.8 其他组件
-除了以“ istio ”为前缀的以上几个 Istio 自有的组件，在集群中一般还安装 Jaeger-agent、Jaeger-collector、Jaeger-query、Kiali、Prometheus、Tracing、Zipkin 组件，这些组件提供了 Istio 的调用链、监控等功能，可以选择安装来完成完整的服务监控管理功能。
+#### 8. 其他组件
+除了以“ istio ”为前缀的以上几个 Istio 自有的组件，在集群中一般还安装 Jaeger-agent、Jaeger-collector、Jaeger-query、Kiali、Prometheus、Tracing、Zipkin 组件，这些组件提供了 Istio 的调用链、监控等功能，可以在安装时选择来完成完整的服务监控管理功能。
 
 [ 下一章节：《Istio流量治理》 ](./Istio的流量治理.md)
