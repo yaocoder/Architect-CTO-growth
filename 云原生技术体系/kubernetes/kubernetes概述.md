@@ -85,7 +85,7 @@ Kubernetes 允许我们存储和管理敏感信息，例如密码、OAuth 令牌
  
 * **其他插件**
     * **CoreDNS**：负责为整个集群提供 DNS 服务，可以为集群中的 SVC 创建一个域名IP的对应关系解析；
-    * **Ingress Controller**：为服务提供外⽹⼊⼝，官方只能实现四层代理，INGRESS 可以实现七层代理；
+    * **Ingress Controller**：为服务提供外⽹⼊⼝，INGRESS 可以实现七层协议代理；
     * **Prometheus**：提供集群的资源监控能力； 
     * **Dashboard**：提供 Web 页面，给 kubernetes 集群提供一个 GUI 的访问管理系统； 
     * **Federation**：提供跨可⽤区的多 kubernetes 集群统一管理能力。

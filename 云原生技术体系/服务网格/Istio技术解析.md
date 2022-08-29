@@ -17,7 +17,7 @@ Istio 是 Service Mesh 实现中最成熟也最受欢迎的项目，由 Google�
 * **可观察性**：动态获取服务运行数据和输出，提供强大的调用链、监控和调用日志收集输出的能力。配合可视化工具，可方便运维人员了解服务的运行状况，发现并解决问题。
 
 ### 1.2 Istio 提供的重要能力：
-* **服务运行可观察性**：监控应用及网络相关数据，将相关指标与日志记录发送至任意收集、聚合与查询系统中以实现功能扩展，追踪分析性能热点并对分布式故障模式进行诊断。
+* **服务运行可观察性**：监控应用及网络相关数据，将相关指标与日志记录发送至相应收集、聚合与查询系统中以实现功能扩展，追踪分析性能热点并对分布式故障模式进行诊断。
 * **弹性与效率**：提供了统一的方法配置重试、负载均衡、流量控制和断路器等来解决网络可靠性低所造成的各类常见故障，更轻松地运维高弹性服务网格。
 * **研发人员生产力**：确保研发人员专注于基于已选择的编程语言构建业务功能，不用在代码中处理分布式系统的问题，从而极大地提升生产能力。
 * **策略驱动型运维**：解耦开发和运维团队的工作，在无须更改代码的前提下提升安全性、监控能力、扩展性与服务拓扑水平。运维人员能够不依赖开发提供的能力精确控制生产流量。
@@ -25,12 +25,12 @@ Istio 是 Service Mesh 实现中最成熟也最受欢迎的项目，由 Google�
 * **增量适用**：考虑到在网络内运行的各服务的透明性，允许团队按照自己的节奏和需求逐步使用各项功能，例如先观察服务运行情况再进行服务治理等。
 
 ### 1.3 Istio 与微服务
-微服务作为一种架构风格，更是一种敏捷的软件工程实践，是一套方法论；与之对应的 Istio 等服务网格则是一种完整的实践，Istio 更是一款设计良好的具有较好集成及可扩展能力的可落地的服务治理工具和平台。所以，**微服务是一套理论，Istio 是一种实践**。
+微服务作为一种架构风格，更是一种敏捷的软件工程实践，是一套方法论；与之对应的 Istio 等服务网格则是一种完整的实践，Istio 更是一款设计良好的具有较好集成及可扩展能力的可落地的服务治理工具和平台——**微服务是一套理论，Istio 是一种实践**。
 
 >从场景来看，Istio 管理的对象大部分是微服务化过的，但这不是必需的要求。对于一个或多个大的单体应用，只要存在服务间的访问要进行治理，Istio 也适用。
 
 ### 1.4 Istio 与服务网格
-Istio 是 Service Mesh 实现中最成熟也最受欢迎的项目，Istio的早期版本使用Envoy V1版本的 API，即 Restful 方式，其新版本使用Envoy V2版本的 API，即 gRPC 协议。
+Istio 是 Service Mesh 实现中最成熟也最受欢迎的项目，**Istio的早期版本使用Envoy V1版本的 API，即 Restful 方式，其新版本使用Envoy V2版本的 API，即 gRPC 协议**。
 
 标准的控制面API解耦了控制面和数据面的绑定。Nginx 的 nginMesh、F5 Networks 的Aspen Mesh 等多种数据面代理支持Istio的控制面。
 
@@ -44,7 +44,9 @@ Istio 是 Service Mesh 实现中最成熟也最受欢迎的项目，Istio的早�
 ### 1.5 Istio 与 Kubernetes
 Istio 项目在发起时已经确认了将云原生生态系统中的容器作为核心打包和运行时，将Kubernetes 作为管理容器的编排系统，由 Istio 管理在容器平台上运行的服务之间的交互，包括控制访问、安全、运行数据收集等。
 
-![Istio与Kubernetes](image/Istio与Kubernetes.png)
+<div align=center>
+<img src="image/Istio与Kubernetes.png" style="zoom:70%" />
+</div>
 <p align="center">图 Istio与Kubernetes（图源 华为Istio培训课程） </p>
 
 Istio 最大化地利用了 Kubernetes 这个基础设施，与之叠加在一起形成了一个更强大的用于进行服务运行和治理的基础设施，并提供了更透明的用户体验。
@@ -56,18 +58,24 @@ Istio 最大化地利用了 Kubernetes 这个基础设施，与之叠加在一�
 |  **控制面** | 无需额外的 APIServer 和规则策略定义，基于 Kubernetes CRD 扩展，Istio 的 APIServer 就是 Kubernetes 的 APIServer | 
 
 > Istio 不仅数据面 Envoy 跑在 Kubernetes 的 Pod 里，其控制面也运行在Kubernetes 集群中，其控制面组件本身存在的形式也是 Kubernetes Deployment 和 Service，基于 Kubernetes 扩展和构建。
-   
-![Istio与Kubernetes架构的关系](image/Istio与Kubernetes架构的关系.png)
+
+<div align=center>
+<img src="image/Istio与Kubernetes架构的关系.png" style="zoom:70%" />
+</div>
 <p align="center">图 Istio与Kubernetes 架构的关系 （图源 华为Istio培训课程）</p>
 
 ## 二、Istio 架构
-Istio 的架构如下如所示，分为控制面和数据面两部分。可以看到，控制面主要包括 Pilot、Mixer、Citadel 服务组件构成；数据面由伴随每个应用程序部署的 Proxy 代理程序 Envoy 组成
-![Istio与Kubernetes架构的关系](image/Istio架构图.png)
+Istio 的架构如下图所示，分为控制面和数据面两部分。可以看到，控制面主要包括 Pilot、Mixer、Citadel 服务组件构成；数据面由伴随每个应用程序部署的 Proxy 代理程序 Envoy 组成
+
+<div align=center>
+<img src="image/Istio架构图.png" style="zoom:50%" />
+</div>
 <p align="center">图 Istio架构图 </p>
 
 ### 2.1 Istio的工作机制
-
-![Istio的工作机制示意图](image/Istio的工作机制示意图.png)
+<div align=center>
+<img src="image/Istio的工作机制示意图.png" style="zoom:30%" />
+</div>
 <p align="center">图 Istio 的工作机制示意图 （图源 《云原生服务网格Istio》）</p>
 
 >  如上图：本文档采用《云原生服务网格Istio》书籍中的业务示例——天气预报应用
@@ -83,30 +91,30 @@ Istio 的架构如下如所示，分为控制面和数据面两部分。可以�
 9. **外部访问**：在网格的入口处有一个 Envoy 扮演入口网关的角色。在上图中，外部服务通过 Gateway 访问入口服务 frontend，对 frontend 服务的负载均衡和一些流量治理策略都在这个Gateway上执行。
 
 ### 2.2 Istio的服务模型
-Istio 的服务、服务版本和服务实例等几个对象构成了 Istio 的服务模型。Istio 支持将由服务、服务版本和服务实例构造的抽象模型映射到不同的平台上，基于Kubernetes 的场景, Istio 的几个资源对象就是基于 Kubernetes 的相应资源对象构建的，加上部分约束（端口命名、 服务关联、Deployment 使用 app 和 version 标签）来满足 Istio 服务模型的要求。
+Istio 的服务、服务版本和服务实例等几个对象构成了 Istio 的服务模型。Istio 支持将由服务、服务版本和服务实例构造的抽象模型映射到不同的平台上，基于Kubernetes 的场景, Istio 的几个资源对象就是基于 Kubernetes 的相应资源对象构建的，加上部分约束（端口命名、服务关联、Deployment 使用 app 和 version 标签）来满足 Istio 服务模型的要求。
 
 #### 2.2.1、Istio的服务
 **从逻辑上看**，服务是 Istio 主要管理的资源对象，是一个抽象概念，主要包含 HostName 和 Ports 等属性，并指定了 Service 的域名和端口列表。每个端口都包含端口名称、端口号和端口的协议。
 
 **从物理层面看**，Istio 服务的存在形式就是 Kubernetes 的 Service，在启用了 Istio 的集群中创建 Kubernetes 的 Service 时只要满足以上约束，就可以转换为 Istio 的 Service 并配置规则进行流量治理。
-> Service 是 Kubernetes 的一个核心资源，用户通过一个域名或者虚拟的 IP 就能访问到后端 Pod，避免向用户暴露 Pod 地址的问题，特别是在 Kubernetes 中，Pod 作为一个资源创建、调度和管理的最小部署单元的封装，本来就是动态变化的，在节点删除、资源变化等多种情况下都可能被重新调度，Pod 的后端地址也会随之变化。
+> Service 是 Kubernetes 的一个核心资源，用户通过一个域名或者虚拟的 IP 就能访问到后端 Pod，避免用户使用不固定 Pod 地址的问题。在 Kubernetes 中，Pod 作为一个资源创建、调度和管理的最小部署单元的封装，是动态变化的，在节点删除、资源变化等多种情况下都可能被重新调度，Pod 的后端地址也会随之变化。
 
 **一个Istio Service 示例**
 
 ```
 apiversion: v1
-kind: Service
+kind: Service         # 指定创建资源的类型
 metadata:
-  name: forecast
-spec:
+  name: forecast      # Service名称
+spec:                 # Service的规格信息
   ports:
-  - port: 3002
-    tagetPort: 3002
-    name: http        #Istio 服务的约束，在端口名称上指定协议
-  selector:
-    app: forecast
+  - port: 3002        # 服务端口信息，Service能够将传入的的port映射到targetPort，推荐port与targetPort配置为相同的值
+    tagetPort: 3002   # 容器访问端口 
+    name: http        # Istio 服务的约束，在端口名称上指定协议
+  selector:           # 标签选择器，定义Service如何查找要管理的Pods。
+    app: forecast     # 依据标签"app"管理相应Pods  
 ```
-在 Istio 中，Service 是治理的对象，是 Istio 中的核心管理实体，所以在 Istio 中，Service 是一个提供了对外访问能力的执行体，可以将其理解为一个定义了服务的工作负载，没有访问方式的工作负载不是 Istio 的管理对象，Kubernetes 的 Service 定义就是 Istio 服务的元数据。
+在 Istio 中，Service 是治理的对象，可以将其理解为一个定义了服务的工作负载（Deployment），没有访问方式的工作负载不是 Istio 的管理对象，Kubernetes 的 Service 定义就是 Istio 服务的元数据。
 
 #### 2.2.2 Istio 的服务版本
 在 Istio 中多个版本的定义是将一个 Service 关联到多个 Deployment ，每个Deployment 都对应服务的一个版本。
@@ -115,9 +123,10 @@ spec:
 </div>
 <p align="center">图  Istio的服务版本 （图源 《云原生服务网格Istio》）</p>
 
-> forecast-v1 和 forecast-v2 这两个 Deployment 分别对应服务的两个版本
+> forecast-v1 和 forecast-v2 这两个 Deployment 对应服务下管理的两个负载
 
 ```
+# v1版本的forecast
 apiVersion: app/v1
 kind: Deployment
 metadata:
@@ -140,6 +149,7 @@ metadata:
           - containerPort: 3002 
 ```
 ```
+# v2版本的forecast
 apiVersion: app/v1
 kind: Deployment
 metadata:
@@ -161,8 +171,8 @@ metadata:
           ports:
           - containerPort: 3002 
 ```
-* 这两个 Deployment 都有相同的“app：forecast”标签，正是这个标签和 Service 的标签选择器一致，才保证了 Service 能关联到两个 Deployment 对应的 Pod。
-* 这两个 Deployment 都有不同的镜像版本，因此各自创建的 Pod 也不同；这两个 Deployment 的 version 标签也不同，分别为 v1 和 v2，表示这是服务的不同版本，这个不同的版本标签用来定义不同的 Destination，进而执行不同的路由规则。
+* **这两个 Deployment 都有相同的“app：forecast”标签**，正是这个标签和 Service 的标签选择器一致，才保证了 Service 能关联到两个 Deployment 对应的 Pod。
+* 这两个 Deployment 都有不同的镜像版本，因此各自创建的 Pod 也不同；这两个 Deployment 的 version 标签也不同，分别为 v1 和 v2，表示这是服务的不同版本，**这个不同的版本标签用来定义不同的 Destination，进而执行不同的路由规则**。
 
 #### 2.2.3 Istio的服务实例
 服务实例是真正处理服务请求的后端，Istio 的ServiceInstance 主要包括 Endpoint、Service、Labels、AvailabilityZone 和 ServiceAccount 等属性，Endpoint 是其中最主要的属性，表示这个实例对应的网络后端（ip：port），Service 表示这个服务实例归属的服务。
@@ -211,21 +221,27 @@ Mixer 在 Istio 中的作用
 
 如下图所示，当网格中的两个服务间有调用发生时，服务的代理 Envoy 就会上报遥测数据给 istio-telemetry 服务组件，istio-telemetry 服务组件则根据配置将生成访问 Metric 等数据分发给后端的遥测服务。数据面代理通过 Report 接口上报数据时访问数据会被批量上报。在架构上，Mixer 作为中介来解耦数据面和不同后端的对接，以提供灵活性和扩展能力。运维人员可以动态配置各种遥测后端，来收集指定的服务运行数据。
 
-![Mixer遥测](image/Mixer遥测.png)
+<div align=center>
+<img src="image/Mixer遥测.png" style="zoom:20%" />
+</div>
 <p align="center">图 Mixer 遥测 （图源 《云原生服务网格Istio》）</p>
 
 ##### istio-policy
 
 如下图，数据面在转发服务的请求前调用 istio-policy 的 Check 接口检查是否允许访问，Mixer 根据配置将请求转发到对应的 Adapter 做对应检查，给代理返回允许访问还是拒绝。可以对接如配额、授权、黑白名单等不同的控制后端，对服务间的访问进行可扩展的控制。
 
-![Mixer策略控制](image/Mixer策略控制.png)
+<div align=center>
+<img src="image/Mixer策略控制.png" style="zoom:20%" />
+</div>
 <p align="center">图 Mixer 策略控制 （图源 《云原生服务网格Istio》）</p>
 
 #### 3. istio-citadel
 
 istio-citadel 是 Istio 的核心安全组件，提供了自动生成、分发、轮换与撤销密钥和证书功能。Citadel 一直监听 Kube-apiserver，以 Secret 的形式为每个服务都生成证书密钥，并在 Pod 创建时挂载到 Pod 上，代理容器使用这些文件来做服务身份认证，进而代理两端服务实现双向 TLS 认证、通道加密、访问授权等安全功能，这样用户就无需在代码里面维护证书密钥了。如下图所示
 
-![Citadel密钥证书维护](image/Citadel密钥证书维护.png)
+<div align=center>
+<img src="image/Citadel密钥证书维护.png" style="zoom:20%" />
+</div>
 <p align="center">图 Citadel 密钥证书维护 （图源 《云原生服务网格Istio》）</p>
 
 #### 4. istio-galley
@@ -256,6 +272,6 @@ Gateway 根据流入流出方向分为 ingress gateway 和 egress gateway
 
 
 #### 8. 其他组件
-除了以“ istio ”为前缀的以上几个 Istio 自有的组件，在集群中一般还安装 Jaeger-agent、Jaeger-collector、Jaeger-query、Kiali、Prometheus、Tracing、Zipkin 组件，这些组件提供了 Istio 的调用链、监控等功能，可以在安装时选择来完成完整的服务监控管理功能。
+除了以“ istio ”为前缀的以上几个 Istio 自有的组件，在集群中一般还安装 **Jaeger-agent、Jaeger-collector、Jaeger-query、Kiali、Prometheus、Tracing、Zipkin** 组件，这些组件提供了 Istio 的调用链、监控等功能，可以在安装时选择来完成完整的服务监控管理功能。
 
 [ 下一章节：《Istio流量治理》 ](./Istio的流量治理.md)

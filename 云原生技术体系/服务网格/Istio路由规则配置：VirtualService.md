@@ -1,8 +1,8 @@
 Istio路由规则配置：VirtualService
 =============
 
-## 二、VirtualService
-VirtualService 是 Istio 流量治理的一个核心配置，也可以说是 Istio 流量治理中最重要、最复杂的规则。
+## VirtualService
+VirtualService 是 Istio 流量治理的核心配置，用来处理 Istio 流量治理中重要、复杂的规则。
 
 ### 路由规则配置示例
 ```
@@ -12,7 +12,7 @@ metadata:
   name: forecast
 spec:
   hosts:
-  - forecast
+  - forecast  # 目标服务地址
   http:
   - match:
     - headers:
@@ -27,7 +27,7 @@ spec:
         host: forecast
         subset: v1  
 ```
-Istio 的配置都是通过 Kubernetes 的 CRD（CustomerResourceDefinition 用户自定义资源）方式表达。此示例所配置的规则是：对于 forecast 服务的访问，如果在请求的Header 中 location 取值是 north，则将该请求转发到服务的 v2 版本上，将其他请求都转发到服务的 v1 版本上。
+首先，Istio 的配置都是通过 Kubernetes 的 CRD（CustomerResourceDefinition 用户自定义资源）方式表达。比如示例所配置的规则是：对于 forecast 服务的访问，如果在请求的Header 中 location 取值是 north，则将该请求转发到服务的 v2 版本上，将其他请求都转发到服务的 v1 版本上。
 
 ### 路由规则定义
 VirtualService 定义了对特定目标服务的一组流量规则。VirtualService 在形式上表示一个虚拟服务，将满足条件的流量都转发到对应的服务后端，这个服务后端可以是一个服务，也可以是在 DestinationRule 中定义的服务的子集。
@@ -278,9 +278,16 @@ spec:
         httpStatus: 500
 ```
 
-##### 1.9 HTTP跨域资源共享（CorsPolicy）
+#### 1.9 HTTP跨域资源共享（CorsPolicy）
 ……
 
+### 3.TLS路由（TLSRoute）
+……
+
+### 4.TCP路由（TCPRoute）
+……
+
+### VirtualService 的典型应用
 
 
 
