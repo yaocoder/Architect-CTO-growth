@@ -229,10 +229,27 @@ RBAC在 kubernetes v1.5 中引入，在 v1.6 版 本时升级为 Beta 版本，�
 ### 集群联邦（Federation）
 Kubernetes 的设计定位是单⼀集群在同⼀个地域内，因为同⼀个地区的⽹络性能才能满⾜Kubernetes 的调度和计算存储连接要求。⽽联合集群服务就是为提供跨地区跨服务商Kubernetes 集群服务⽽设计的。（Kubernetes 在1.3版本以后）
 
-## 四、总结
+## 四、kubernetes 应用资源概览
+![kubernetes集群架构](image/Kubernetes应用资源概览.png)
+* 一个典型的应用 manifest（yaml文件） 包含了一个或多个 Deployment 和 StatefulSet 对象。这些对象中包含了一个或多个容器的 pod 模板，每个容器都有一个存活探针（liveness probe），同时提供了就绪探针（readiness probe）。提供服务的 pod 是通过一个或多个服务（Service）来暴露自己的。当需要从集群外访问这些服务的时候，要么将这些服务配置为 LoadBalancer 或者 NodePort 类型的服务，要么通过 Ingress 资源来开放服务。
+
+* pod模板（创建 pod 的配置文件）通常会引用两种类型的私密凭据（Secret）。一种是从私有镜像仓库拉取镜像时使用的；另一种是 pod 中运行的进程直接使用的。Secret 本身不是应用 manifest 的一部分，因为它们不是由应用开发者来配置，而是由运维团队来配置的。Secret 通常会被分配给 ServiceAccount，然后 ServiceAccount 会被分配给每个单独的 pod。
+
+* 一个应用还包含一个或多个 ConfigMap 对象，可以用它们来初始化环境变量，或者在 pod 中以 ConfigMap 卷来挂载。有一些 pod 会使用额外的卷，例如 emptyDir 或 gitRepo 卷，而需要持久化存储的 pod 则需要 persistentVolumeClaim 卷。persistentVolumeClaim 也是一个应用 manifest 的一部分， 而被 persistentVolumeClaim 所引用的 StorageClass 则是由系统管理员事先创建的。
+
+* 在某些情况下，一个应用还需要使用任务（Jobs）和定时任务（CronJobs）。守护进程集（DaemonSet）通常不是应用部署的一部分，但是通常由系统管理员创建，以在全部或部分节点上运行系统服务。水平 pod 扩容器（HorizontalpodAutoscaler）可以由开发者包含在应用 manifest 中或者后续由运维团队添加到系统中。集群管理员还会创建 LimitRange 和 ResourceQuota 对象，以控制每一个 pod 和所有的 pod（作为一个整体）的资源使用情况。
+
+* 在应用部署后，各种 Kubernetes 控制器会自动创建其他的对象。其中包含端点控制器（Endpoint controller）创建的服务端点（Endpoint）对象，部署控制器（Deployment controller）创建的 ReplicaSet 对象，以及由 ReplicaSet （或者Job、CronJob、StatefulSet、DaemonSet）创建的实际 pod 对象。
+
+* 资源通常通过一个或多个标签（labels）来组织。这不仅仅适用于 pod，也适用于其他的资源。除了标签，大多数的资源还包含一个描述资源的注解，列出负责该资源的人员或者团队的联系信息，或者为管理者或者其他的工具提供额外的元数据。
+
+**我们的每个应用都运行在 pod 中，pod 是所有一切资源的中心，是 Kubernetes 中最重要的资源。**
+
+## 五、总结
 **Kubernetes 是一款用于管理容器化工作负载和服务的可移植、可扩展的开源平台，拥有庞大、快速发展的生态系统，它面向基础设施，将计算、网络、存储等资源进行紧密整合，为容器提供最佳运行环境，并面向应用提供封装好的、易用的工作负载与服务编排接口，以及运维所需的资源规格、弹性、运行参数、调度等配置管理接口，是新一代的云原生基础设施平台。**
 
 ## 参考资料
+* 《Kubernetes in Action 中文版》
 * <https://kubernetes.io/>
 * <https://lib.jimmysong.io/>
 * [【尚硅谷】Kubernetes（kubernetes）入门到实战教程](https://www.bilibili.com/video/BV1GT4y1A756?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=4e9c1efc93607bc946493aeb6aa7e795)
