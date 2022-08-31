@@ -1,6 +1,6 @@
 Istio 技术解析
 =============
-> **注**：因为造不出更优秀的轮子，所以以下内容多从书籍《云原生服务网格Istio：原理、实践、架构与源码解析》综合总结而来 ，个人认为这本书时学习Istio的最佳资料，常读常新！
+> **注**：因为造不出更优秀的轮子，所以以下内容多从书籍《云原生服务网格Istio：原理、实践、架构与源码解析》和 Istio 官网综合总结而来 ，个人认为这些资料是学习Istio的最佳资料，常读常新，希望大家能够购买阅读此书，并且在B站上有华为Istio培训课程，也是上述书籍团队主讲的，希望大家关注学习！
 
 ## 一、Istio 简介
 Istio 是 Service Mesh 实现中最成熟也最受欢迎的项目，由 Google、IBM 和 Lyft 开源。可以简单理解为：
@@ -11,33 +11,35 @@ Istio 是 Service Mesh 实现中最成熟也最受欢迎的项目，由 Google�
 ### 1.1 Istio 服务治理涉及：
 
 **连接（Connect）、安全（Secure）、策略执行（Control）和可观察性（Observe）**
-* **连接**：Istio 通过集中配置的流量规则控制服务间的流量和调用，实现负载均衡、熔断、故障注入、重试、重定向等服务治理功能。
-* **安全**：Istio 提供透明的认证机制、通道加密、服务访问授权等安全能力，可增强服务访问的安全性。
+* **连接**：Istio 通过集中配置的流量规则控制服务间的流量和调用，实现负载均衡、熔断、故障注入、重试、重定向等服务治理功能。从而使我们可以轻而易举的执行如 A/B 测试、金丝雀发布和按流量百分比划分的分阶段发布等任务。
+* **安全**：Istio 提供透明的认证机制、通道加密、服务访问授权等安全能力，可增强服务访问的安全性。Istio 的安全特性解放了开发人员，使其只需要专注于应用程序级别的安全。
 * **策略执行**：Istio 通过可动态插拔、可扩展的策略实现访问控制、速率限制、配额管理、服务计费等能力。
 * **可观察性**：动态获取服务运行数据和输出，提供强大的调用链、监控和调用日志收集输出的能力。配合可视化工具，可方便运维人员了解服务的运行状况，发现并解决问题。
 
 ### 1.2 Istio 提供的重要能力：
-* **服务运行可观察性**：监控应用及网络相关数据，将相关指标与日志记录发送至相应收集、聚合与查询系统中以实现功能扩展，追踪分析性能热点并对分布式故障模式进行诊断。
+* **使服务运行具备可观察性**：监控应用及网络相关数据，将相关指标与日志记录发送至相应收集、聚合与查询系统中以实现功能扩展，追踪分析性能热点并对分布式故障模式进行诊断。
 * **弹性与效率**：提供了统一的方法配置重试、负载均衡、流量控制和断路器等来解决网络可靠性低所造成的各类常见故障，更轻松地运维高弹性服务网格。
-* **研发人员生产力**：确保研发人员专注于基于已选择的编程语言构建业务功能，不用在代码中处理分布式系统的问题，从而极大地提升生产能力。
+* **提高研发人员生产力**：确保研发人员专注于基于已选择的编程语言构建业务功能，不用在代码中处理分布式系统的问题，从而极大地提升生产能力。
 * **策略驱动型运维**：解耦开发和运维团队的工作，在无须更改代码的前提下提升安全性、监控能力、扩展性与服务拓扑水平。运维人员能够不依赖开发提供的能力精确控制生产流量。
-* **默认安全**：允许运营人员配置 TLS 双向认证并保护各服务之间的所有通信，并且开发人员和运维人员不用维护证书，以应对分布式计算中经常存在的大量网络安全问题。
-* **增量适用**：考虑到在网络内运行的各服务的透明性，允许团队按照自己的节奏和需求逐步使用各项功能，例如先观察服务运行情况再进行服务治理等。
+* **提供安全基础设施**：允许运营人员配置 TLS 双向认证并保护各服务之间的所有通信，并且开发人员和运维人员不用维护证书，以应对分布式计算中经常存在的大量网络安全问题。
+* **演进使用**：允许团队按照自己的节奏和需求逐步使用各项功能，例如先观察服务运行情况再进行服务治理等。
 
 ### 1.3 Istio 与微服务
-微服务作为一种架构风格，更是一种敏捷的软件工程实践，是一套方法论；与之对应的 Istio 等服务网格则是一种完整的实践，Istio 更是一款设计良好的具有较好集成及可扩展能力的可落地的服务治理工具和平台——**微服务是一套理论，Istio 是一种实践**。
+微服务作为一种架构风格，更是一种敏捷的软件工程实践，是一套方法论；与之对应的 Istio 等服务网格则是一种完整的实践——**微服务是一套理论，Istio 是一种实践**。
+
+**Istio 是一款设计良好的具有较好集成及可扩展能力的可落地的服务治理工具和平台**。
 
 >从场景来看，Istio 管理的对象大部分是微服务化过的，但这不是必需的要求。对于一个或多个大的单体应用，只要存在服务间的访问要进行治理，Istio 也适用。
 
 ### 1.4 Istio 与服务网格
-Istio 是 Service Mesh 实现中最成熟也最受欢迎的项目，**Istio的早期版本使用Envoy V1版本的 API，即 Restful 方式，其新版本使用Envoy V2版本的 API，即 gRPC 协议**。
+**Istio 是 Service Mesh 实现中最成熟也最受欢迎的项目，Istio的早期版本使用Envoy V1版本的 API，即 Restful 方式，其新版本使用Envoy V2版本的 API，即 gRPC 协议**。
 
-标准的控制面API解耦了控制面和数据面的绑定。Nginx 的 nginMesh、F5 Networks 的Aspen Mesh 等多种数据面代理支持Istio的控制面。
+标准的控制面 API 解耦了控制面和数据面的绑定。Nginx 的 nginMesh、F5 Networks 的Aspen Mesh 等多种数据面代理支持 Istio 的控制面。
 
-在数据面的竞争上，Istio 的标准数据面Envoy 是由 Lyft 内部于2016年开发的，比 Linkerd 更早。2016年9月，Envoy 开源并发布了 1.0.0版本；2017年 9月，Envoy 加入 CNCF，成为第2个 Service Mesh 项目；2018年11月，Envoy 从 CNCF 毕业，这标志着其趋于成熟。
+在数据面的竞争上，Istio 的标准数据面Envoy 是由 Lyft 内部于2016年开发的，比 Linkerd 更早。2016年9月，Envoy 开源并发布了 1.0.0 版本；2017年9月，Envoy 加入 CNCF，成为第2个 Service Mesh 项目；2018年11月，Envoy 从 CNCF 毕业，标志着其趋于成熟。
 * 从开发语言上看，Envoy是使用 C++ 开发的，其性能和资源占用比用 Rust 开发的 Linkerd Proxy 要更好，更能满足服务网格中对透明代理的轻量高性能要求；
-* 从能力上看，Envoy 提供 L3/L4 过滤器、HTTP L7 过滤器，支持 HTTP/2、HTTP L7路由及 gRPC、MongoDB、DynamoDB 等协议，有服务发现、健康检查、高级 LB 、前端代理等能力，具有极好的可观察性、动态配置功能；
-* 从架构实现上看，Envoy是一个可高度定制化的程序，通过 Filter机制提供了高度扩展性，还支持热重启，其代码基于模块化编码，易于测试。
+* 从能力上看，Envoy 提供 L3/L4 过滤器、HTTP L7 过滤器，支持 HTTP/2、HTTP L7路由及 gRPC、MongoDB、DynamoDB 等协议，有服务发现、健康检查、高级 LoadBalance 、前端代理等能力，具有极好的可观察性、动态配置功能；
+* 从架构实现上看，Envoy 是一个可高度定制化的程序，通过 Filter 机制提供了高度扩展性，还支持热重启，其代码基于模块化编码，易于测试。
 
 除了在 Istio 中应用，Envoy 在其他 Service Mesh 框架中也被广泛应用，**渐渐成为Service Mesh 的数据平面标准**。
 
@@ -57,7 +59,7 @@ Istio 最大化地利用了 Kubernetes 这个基础设施，与之叠加在一�
 |  **使用体验** | 完全的 Kubernetes 使用体验。Sidecar 自动 Pod 注入，业务无感知，和部署普通 Kubernetes 负载无差别 |  
 |  **控制面** | 无需额外的 APIServer 和规则策略定义，基于 Kubernetes CRD 扩展，Istio 的 APIServer 就是 Kubernetes 的 APIServer | 
 
-> Istio 不仅数据面 Envoy 跑在 Kubernetes 的 Pod 里，其控制面也运行在Kubernetes 集群中，其控制面组件本身存在的形式也是 Kubernetes Deployment 和 Service，基于 Kubernetes 扩展和构建。
+> Istio 不仅数据面 Envoy 跑在 Kubernetes 的 Pod 里，其控制面也运行在 Kubernetes 集群中，其控制面组件本身存在的形式也是 Kubernetes Deployment 和 Service，基于 Kubernetes 扩展和构建。
 
 <div align=center>
 <img src="image/Istio与Kubernetes架构的关系.png" style="zoom:70%" />
@@ -91,7 +93,7 @@ Istio 的架构如下图所示，分为控制面和数据面两部分。可以�
 9. **外部访问**：在网格的入口处有一个 Envoy 扮演入口网关的角色。在上图中，外部服务通过 Gateway 访问入口服务 frontend，对 frontend 服务的负载均衡和一些流量治理策略都在这个Gateway上执行。
 
 ### 2.2 Istio的服务模型
-Istio 的服务、服务版本和服务实例等几个对象构成了 Istio 的服务模型。Istio 支持将由服务、服务版本和服务实例构造的抽象模型映射到不同的平台上，基于Kubernetes 的场景, Istio 的几个资源对象就是基于 Kubernetes 的相应资源对象构建的，加上部分约束（端口命名、服务关联、Deployment 使用 app 和 version 标签）来满足 Istio 服务模型的要求。
+Istio 的服务、服务版本和服务实例等几个对象构成了 Istio 的服务模型。Istio 支持将由服务、服务版本和服务实例构造的抽象模型映射到不同的平台上，基于Kubernetes 的场景, Istio 的这几个资源对象就是基于 Kubernetes 的相应资源对象构建的，加上部分约束（端口命名、服务关联、Deployment 使用 app 和 version 标签）来满足 Istio 服务模型的要求。
 
 #### 2.2.1、Istio的服务
 **从逻辑上看**，服务是 Istio 主要管理的资源对象，是一个抽象概念，主要包含 HostName 和 Ports 等属性，并指定了 Service 的域名和端口列表。每个端口都包含端口名称、端口号和端口的协议。
@@ -114,7 +116,7 @@ spec:                 # Service的规格信息
   selector:           # 标签选择器，定义Service如何查找要管理的Pods。
     app: forecast     # 依据标签"app"管理相应Pods  
 ```
-在 Istio 中，Service 是治理的对象，可以将其理解为一个定义了服务的工作负载（Deployment），没有访问方式的工作负载不是 Istio 的管理对象，Kubernetes 的 Service 定义就是 Istio 服务的元数据。
+在 Istio 中，Service 是治理的对象，可以将其理解为一个定义了服务的工作负载（Deployment），Kubernetes 的 Service 定义就是 Istio 服务的元数据。
 
 #### 2.2.2 Istio 的服务版本
 在 Istio 中多个版本的定义是将一个 Service 关联到多个 Deployment ，每个Deployment 都对应服务的一个版本。
@@ -184,7 +186,6 @@ metadata:
 <p align="center">图  Istio的服务实例（图源 《云原生服务网格Istio》）</p>
 
 
-
 ### 2.3 Istio的主要组件
 #### 1. istio-pilot
 istio-pilot是 Istio 的控制中枢 Pilot 服务，和传统的微服务架构对比，Pilot 至少涵盖服务注册中心和 Config Server 等管理组件的功能。
@@ -193,12 +194,12 @@ istio-pilot是 Istio 的控制中枢 Pilot 服务，和传统的微服务架构�
 <p align="center">图 Pilot 的服务发现功能 （图源 华为Istio培训课程）</p>
 
 1. **服务注册表**：Pilot 从平台获取服务发现数据，并提供统一的服务发现接口。
-2. **服务注册**：无
-3. **服务发现**：Envoy 实现服务发现，动态更新负载均衡池。在服务请求时使用对应的负载均衡策略将请求路由到 对应的后端。
+2. **服务注册**：无须进行服务注册，底层 Kubernetes 平台负责（这种抽象模型解耦了Pilot和底层平台的不同实现，可支持Kubernetes、Consul等平台）
+3. **服务发现**：Envoy 实现服务发现，动态更新负载均衡池。在服务请求时使用对应的负载均衡策略将请求路由到对应的后端。
 
 ##### 服务配置
 
-除了服务发现，Pilot 更重要的一个功能是向数据面下发规则，包括 VirtualService、DestinationRule、Gateway、ServiceEntry 等流量治理规则，也包括认证授权等安全规则。Pilot 负责将各种规则转换成 Envoy 可识别的格式，通过标准的 xDS 协议发送给 Envoy，指导 Envoy 完成动作。在通信上，Envoy 通过 gRPC 流式订阅 Pilot 的配置资源。
+除了上述服务发现，Pilot 更重要的一个功能是向数据面下发规则，包括 VirtualService、DestinationRule、Gateway、ServiceEntry 等流量治理规则，也包括认证授权等安全规则。Pilot 负责将各种规则转换成 Envoy 可识别的格式，通过标准的 xDS 协议发送给 Envoy，指导 Envoy 完成动作。在通信上，Envoy 通过 gRPC 流式订阅 Pilot 的配置资源。
 > **注**：xDS是一类发现服务的总称，包含LDS，RDS，CDS，EDS以及 SDS。Envoy通过xDS API可以动态获取Listener（监听器）， Route（路由），Cluster（集群），Endpoint（集群成员）以 及Secret（证书）配置。
 
 ![Istio服务访问规则维护和工作机制](image/Istio服务访问规则维护和工作机制.png)
@@ -228,7 +229,7 @@ Mixer 在 Istio 中的作用
 
 ##### istio-policy
 
-如下图，数据面在转发服务的请求前调用 istio-policy 的 Check 接口检查是否允许访问，Mixer 根据配置将请求转发到对应的 Adapter 做对应检查，给代理返回允许访问还是拒绝。可以对接如配额、授权、黑白名单等不同的控制后端，对服务间的访问进行可扩展的控制。
+istio-policy是另外一个Mixer服务。如下图，数据面在转发服务的请求前调用 istio-policy 的 Check 接口检查是否允许访问，Mixer 根据配置将请求转发到对应的 Adapter 做对应检查，给代理返回允许访问还是拒绝。可以对接如配额、授权、黑白名单等不同的控制后端，对服务间的访问进行可扩展的控制。
 
 <div align=center>
 <img src="image/Mixer策略控制.png" style="zoom:20%" />
@@ -252,17 +253,17 @@ istio-galley 并不直接向数据面提供业务能力，而是在控制面上�
 
 istio-sidecar-injector 是负责自动注入的组件，只要开启了自动注入，在Pod创建时就会自动调用 istio-sidecar-injector 向 Pod 中注入 Sidecar 容器。
 
-在 Kubernetes 环境下，根据自动注入配置，Kube-apiserver 在拦截到 Pod 创建的请求时，会调用自动注入服务 istio-sidecar-injector 生成 Sidecar 容器的描述并将其插入原 Pod 的定义中，这样，在创建的 Pod 内除了包括业务容器，还包括 Sidecar 容器。这个注入过程对用户透明。
+在 Kubernetes 环境下，根据自动注入配置，Kube-apiserver 在拦截到 Pod 创建的请求时，会调用自动注入服务 istio-sidecar-injector 生成 Sidecar 容器的描述并将其插入原 Pod 的定义中，这样，在创建的 Pod 内除了包括业务容器，还包括 Sidecar 容器。**这个注入过程对用户透明**。
 
 #### 6. istio-proxy
 
-在 Istio 的描述中，Envoy、Sidecar、Proxy 等术语有时混着用，都表示 Istio 数据面的轻量代理。查看 Pod 的详细信息，会发现这个容器的正式名字是 istio-proxy，不是通用的 Envoy 镜像，而是叠加了 Istio 的 Proxy 功能的一个扩展版本。另外，在istio-proxy 容器中除了有 Envoy，还有一个 pilot-agent 的守护进程。
+在 Istio 的描述中，Envoy、Sidecar、Proxy 只是术语混着用，其实都表示 Istio 数据面的轻量代理。查看 Pod 的详细信息，会发现这个容器的正式名字是 istio-proxy，不是通用的 Envoy 镜像，而是叠加了 Istio 的 Proxy 功能的一个扩展版本。另外，在istio-proxy 容器中除了有 Envoy，还有一个 pilot-agent 的守护进程。
 
 > Envoy 是用 C++ 开发的非常有影响力的轻量级高性能开源服务代理。作为服务网格的数据面，Envoy 提供了动态服务发现、负载均衡、TLS、HTTP/2 及 gRPC 代理、熔断器、健康检查、流量拆分、灰度发布、故障注入等功能，Istio 大部分治理能力最终都落实到 Envoy 的实现上。
 
 #### 7. istio-ingressgateway
 
-在Istio中，Gateway控制着网格边缘的服务暴露。istio-ingressgateway 就是入口处的 Gateway，从网格外访问网格内的服务就是通过这个 Gateway 进行的。
+在Istio中，Gateway控制着网格边缘的服务暴露。istio-ingressgateway 就是入口处的 Gateway，从网格外访问网格内的服务就是通过这个 Gateway 进行的。istio-ingressgateway 比较特别，是一个 Loadbalancer 类型的 Service，不同于其他服务组件只有一两个端口，istio-ingressgateway 开放了一组端口，这些就是网格内服务的外部访问端口。
 
 Gateway 根据流入流出方向分为 ingress gateway 和 egress gateway
 * **Ingress gateway**: 控制外部服务访问网格内服务，配合VirtualService
