@@ -571,7 +571,8 @@ kubectl get sc
 kubectl patch storageclass openebs-hostpath -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 ```
 
-![image-20221119140651428](C:\Users\wangjb\AppData\Roaming\Typora\typora-user-images\image-20221119140651428.png)
+![image](https://user-images.githubusercontent.com/73329369/220042984-e5d70a89-f0d0-43ed-b143-24847a2e02d2.png)
+
 
 
 
@@ -666,7 +667,8 @@ istio-ingressgateway   NodePort   10.1.109.168   <none>        15021:30965/TCP,8
 
 从输出可以看到80映射的是31714，因此打开kubeflow页面的地址就是http://服务器IP:31714/
 
-![image-20221027151829241](C:\Users\wangjb\AppData\Roaming\Typora\typora-user-images\image-20221027151829241.png)
+![image](https://user-images.githubusercontent.com/73329369/220043044-d86b9b7c-936e-4594-a8a9-cd4d062e37ad.png)
+
 
 登录的账号一般默认是user@example.com，密码：12341234，如果不对，则在dex的configmaps中查看
 
