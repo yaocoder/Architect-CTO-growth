@@ -7,7 +7,7 @@ Istio目标规则配置：DestinationRule
 特别的，我们可以使用 DestinationRule 来指定命名的 subset （服务子集），例如按版本为所有给定服务的实例分组。然后可以在 VirtualService 的路由规则中使用这些服务子集来控制到服务不同实例的流量。
 
 ### VirtualService 和 DestinationRule 的区别
-DestinationRule 经常和 VirtualService 结合使用，VirtualService 用到的服务子集 subset在 DestinationRule 上定义。同时，在 VirtualService 上定义了一些规则，在DestinationRule上也定义了一些规则。
+DestinationRule 经常和 VirtualService 结合使用，**VirtualService 用到的服务子集 subset在 DestinationRule 上定义**。同时，在 VirtualService 上定义了一些规则，在DestinationRule上也定义了一些规则。
 
 **VirtualService 描述的是满足什么条件的流量被哪个后端服务处理。而 DestinationRule 描述的是这个请求到达某个后端服务后怎么去处理，是所谓目标的规则。**
 
